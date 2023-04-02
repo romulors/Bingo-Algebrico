@@ -20,13 +20,13 @@ console.log(modelos);
 async function carregaModelosEquacoes() {
 	try {
 		const diretorio = "modelos/";
-		//const hrefs = await verificaModelosEquacoes(diretorio);
+		const hrefs = await verificaModelosEquacoes(diretorio);
 
-		hrefs = [];
-		hrefs.push("./modelos/fracoes_divisao.json");
-		hrefs.push("./modelos/fracoes_multiplicacao.json");
-		hrefs.push("./modelos/fracoes_soma.json");
-		hrefs.push("./modelos/fracoes_subtracao.json");
+		// hrefs = [];
+		// hrefs.push("./modelos/fracoes_divisao.json");
+		// hrefs.push("./modelos/fracoes_multiplicacao.json");
+		// hrefs.push("./modelos/fracoes_soma.json");
+		// hrefs.push("./modelos/fracoes_subtracao.json");
 
 		hrefs.forEach(ref => {
 			fetch(ref)
