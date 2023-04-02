@@ -34,7 +34,6 @@ async function carregaModelosEquacoes() {
 			.then((json) => modelos.push(json));
 		})
 
-		console.log(hrefs);
 	} catch (err) {
 		console.log(err);
 	}
@@ -45,8 +44,6 @@ async function verificaModelosEquacoes(diretorio) {
 	try {
 		const response = await fetch(diretorio);
 		const html = await response.text();
-		console.log("IMPRIMINDO HTML");
-		console.log(html);
 		const div = document.createElement('div');
 		div.innerHTML = html;
 		const anchorTags = div.querySelectorAll('a.icon-application-json');
