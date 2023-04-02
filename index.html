@@ -9,56 +9,60 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 	<script src="https://unpkg.com/mathjs/lib/browser/math.js"></script>
-	<script src="script.js"></script>
 </head>
 <body>
 	<div id="page">
 		<header>
 
-			<div id="logo-container">
-				<img src="imagens/Background-Logo.jpg" alt="">
-				<h1 id="titulo-pagina">Bingo Algébrico</h1>
+			<div id="banner">
+				<h1>Bingo Algébrico</h1>
 			</div>
 
 			<nav>
 				<ul>
-					<li>
+					<li class="menu inicio active">
+						<div>
+							<i class="fas fa-home"></i>
+							<p>Início</p>
+						</div>
+					</li>
+					<li class="menu topicos">
 						<div>
 							<i class="fas fa-home"></i>
 							<p>Tópicos</p>
 						</div>
 					</li>
-					<li class="active">
+					<li class="menu equacoes">
 						<div>
 							<i class="fas fa-box"></i>
 							<p>Equações</p>
 						</div>
 					</li>
-					<li>
+					<li class="menu restricoes">
 						<div>
 							<i class="fas fa-book-open"></i>
 							<p>Restrições</p>	
 						</div>
 					</li>
-					<li>
+					<li class="menu questoes">
 						<div>
 							<i class="fas fa-users"></i>
 							<p>Questões</p>
 						</div>
 					</li>
-					<li>
+					<li class="menu cartelas">
 						<div>
 							<i class="fas fa-users"></i>
 							<p>Cartelas</p>	
 						</div>
 					</li>
-					<li>
+					<li class="menu tema">
 						<div>
 							<i class="fas fa-users"></i>
 						<p>Tema</p>
 						</div>				
 					</li>
-					<li>
+					<li class="menu final">
 						<div>
 							<i class="fas fa-users"></i>
 							<p>Final</p>
@@ -71,7 +75,37 @@
 
 		<main>
 
-			<!-- <p id="p1">Paragrafo</p> -->
+			<div class="conteudo inicio active">
+				<p>inicio</p>
+			</div>
+
+			<div class="conteudo topicos">
+				<p>topicos</p>
+			</div>
+
+			<div class="conteudo equacoes">
+				<p>equacoes</p>
+			</div>
+
+			<div class="conteudo restricoes">
+				<p>restricoes</p>
+			</div>
+
+			<div class="conteudo questoes">
+				<p>questoes</p>
+			</div>
+
+			<div class="conteudo cartelas">
+				<p>cartelas</p>
+			</div>
+
+			<div class="conteudo tema">
+				<p>tema</p>
+			</div>
+
+			<div class="conteudo final">
+				<p>final</p>
+			</div>
 
 		</main>
 
@@ -82,6 +116,8 @@
 		<!-- <script src="https://unpkg.com/mathjs/lib/browser/math.js" async>
 
 		</script> -->
+
+		<script src="script.js"></script>
 
 	</div>
 
