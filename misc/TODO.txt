@@ -1,0 +1,57 @@
+Roadmap Bingo Algébrico - O que fazer?
+
+[Aba Início]
+    [ ] Criar rápida descrição da página
+    [ ] Cria espécie de infógrafo sobre as etapas do Bingo
+        Para isso, podemos usar um Collapsible para criar
+        a listagem com descrição em cada etapa. Ver o link
+        https://www.w3schools.com/howto/howto_js_collapsible.asp
+    [ ] Associar links no infógrafo
+    [ ] Carregar do banco de dados as Equações
+    [ ] Processar as equações e formar listas de Tópicos
+    [ ] Carregar conjunto de questões previamente criadas 
+
+[Aba Tópicos]
+    [ ] Adicionar funcionalidade de novo Tópico
+    [ ] Salvar lista de tópicos no banco de dados
+    [ ] Adicionar funcionalidade de remover tópico existente
+    [ ] Adicionar funcionalidade de marcar e desmarcar seleção 
+        de tópicos, salvando no banco de dados a seleção
+    [ ] Estilizar o fundo e o texto dos botões, na hora de 
+        clicar para alterar, adicionar e remover, deixand claro
+        pro usuário que estará selecionando uma opção. Ver o
+        link https://www.w3schools.com/howto/howto_js_todolist.asp
+        para entender a funcionalidade
+
+[Aba Equações]
+    [ ] Adicionar link para ver restrições aplicadas. Usar o
+        icone fas-wrench para simbolizar uma edição da equação.
+    [ ] Colocar um link para a restrição associada as equações.
+
+[Aba Restrições]
+    [ ] Definir tipos de restrições
+
+[Aba Questôes]
+    [ ] Numero de tipos de questões deve ter valor maximo igual 
+        o número de questões por cartela
+    [ ] Número de repetições por questões deve ter valor máximo
+        igual ao número de cartelas
+    [ ] Número de questões por cartela deve ter valor máximo
+        igual ao número de questões únicas
+
+[Aba Cartelas]
+
+[Aba Visual]
+
+[Aba Final]
+
+[Outras questões]
+    [x] Estilizar mouse ao passar encima dos ícones
+    [ ] Adicionar mensagens de alerta ao usuário, ao realizar
+        determinadas ações de edição no site. Ver link abaixo
+        https://www.w3schools.com/howto/howto_js_alert.asp
+        https://www.w3schools.com/howto/howto_css_notes.asp
+        https://www.w3schools.com/howto/howto_js_snackbar.asp
+    [ ] Transição categorizada entre cada item inserido nas
+        tabelas. Ver link abaixo:
+        https://www.w3schools.com/howto/howto_css_smooth_scroll.asp#section1
