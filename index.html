@@ -94,34 +94,47 @@
                     </ol>
                 </div>
 
-                <div class="conteudo topicos">
+                <div class="conteudo topicos active">
                     <h2>Tópicos</h2>
                     <hr>
 
-                    <div class="table-container">
-                        <table id="tabelaTopicos">
-                            <tr>
-                                <th><p>Selecionado</p></th>
-                                <th><p>Nome</p></th>
-                                <th><p>Remover</p></th>
-                            </tr>
-                            <!-- Aqui tem dois exemplos hardcoded... -->
-                            <tr class="topico">
-                                <td><span class="fas fa-check"></span></td>
-                                <td><p>Frações</p></td>
-                                <td><span class="fas fa-xmark"></td>
-                            </tr>
-                            <tr class="topico">
-                                <td><span class="fas fa-plus"></span></td>
-                                <td><p>Expoentes</p></td>
-                                <td><span class="fas fa-xmark"></td>
-                            </tr>
-                            <tr class="topico">
-                                <td><span class="fas fa-plus"></span></td>
-                                <td><p>Trigonometria</p></td>
-                                <td><span class="fas fa-xmark"></td>
-                            </tr>
-                        </table>
+                    <div class="topicsList">
+                        
+
+                        <div class="topicCard selected">
+                            <span class="topicName">QUATRO OPERAÇÕES</span>
+                            <span class="topicNumberOfQuestions">4 Questões</span>
+                            <div class="topicFooter">
+                                <span class="editTopicButton fas fa-wrench"></span>
+                                <span class="topicStatus">Adicionado</span>
+                                <span class="deleteTopicButton fas fa-xmark"></span>
+                            </div>
+                        </div>
+
+
+                        <div class="topicCard selected">
+                            <span class="topicName">FRAÇÕES</span>
+                            <span class="topicNumberOfQuestions">8 Questões</span>
+                            <div class="topicFooter">
+                                <span class="editTopicButton fas fa-wrench"></span>
+                                <span class="topicStatus">Adicionado</span>
+                                <span class="deleteTopicButton fas fa-xmark"></span>
+                            </div>
+                        </div>
+
+
+                        <div class="topicCard">
+                            <span class="topicName">TRIGONOMETRIA</span>
+                            <span class="topicNumberOfQuestions">12 Questões</span>
+                            <div class="topicFooter">
+                                <span class="editTopicButton fas fa-wrench"></span>
+                                <span class="topicStatus">Não adicionado</span>
+                                <span class="deleteTopicButton fas fa-xmark"></span>
+                            </div>
+                        </div>
+
+
+
                     </div>
 
                     <div class = "edita-topico">
@@ -132,7 +145,7 @@
                 </div>
 
 
-                <div class="conteudo equacoes active">
+                <div class="conteudo equacoes">
                     <h2>Equações</h2>
                     <hr>
 
@@ -153,7 +166,7 @@
 
 
                         <div class="equationCard selected">
-                            <span class="renderEquation">\[{A \over B} {A \over B} {A \over B} {A \over B} {A \over B} - {C \over D} = {E \over F}\]</span>
+                            <span class="renderEquation">\[{A \over B} - {C \over D} = {E \over F}\]</span>
                             <span class="equationName">Subtração de Fração</span>
                             <div class="equationFooter">
                                 <span class="editEquationButton fas fa-wrench"></span>
