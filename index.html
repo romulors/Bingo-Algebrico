@@ -73,12 +73,12 @@
 
         </nav>
 
-        <div id="page" class="working">
+        <div id="page" class="">
             <header>
             </header>
 
             <main>
-                <div class="conteudo inicio active">
+                <div class="conteudo inicio">
                     <h2>Início</h2>
                     <hr>
                     <p>Como usar</p>
@@ -132,11 +132,39 @@
                 </div>
 
 
-                <div class="conteudo equacoes">
+                <div class="conteudo equacoes active">
                     <h2>Equações</h2>
                     <hr>
 
-                    <div class="table-container">
+                    <p id="equacoesDescription">Selecione as equações para o Bingo.</p>
+
+                    <div class="equationsList">
+
+
+                        <div class="equationCard">
+                            <span class="renderEquation">\[{A \over B} + {C \over D} = {E \over F}\]</span>
+                            <span class="equationName">Soma de Fração</span>
+                            <div class="equationFooter">
+                                <span class="editEquationButton fas fa-wrench"></span>
+                                <span class="equationStatus">Não adicionado</span>
+                                <span class="deleteEquationButton fas fa-xmark"></span>
+                            </div>
+                        </div>
+
+
+                        <div class="equationCard selected">
+                            <span class="renderEquation">\[{A \over B} {A \over B} {A \over B} {A \over B} {A \over B} - {C \over D} = {E \over F}\]</span>
+                            <span class="equationName">Subtração de Fração</span>
+                            <div class="equationFooter">
+                                <span class="editEquationButton fas fa-wrench"></span>
+                                <span class="equationStatus">Adicionado</span>
+                                <span class="deleteEquationButton fas fa-xmark"></span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- <div class="table-container">
                         <table data-equacao="A/B + C/D = E/F">
                             <tr>
                                 <th><p>Selecionado</p></th>
@@ -193,7 +221,8 @@
                             <button class="botao" type="button">Adicionar nova Equação</button>
                             <button class="botao" type="button">Salvar Equações</button>
                         </div>
-                    </div>
+                    </div> -->
+
                 </div>
 
 
