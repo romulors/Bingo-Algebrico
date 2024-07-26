@@ -7,13 +7,13 @@
 
         <title>Bingo Algébrico</title>
         <!-- Estilização da página -->
-        <link rel="stylesheet" type="text/css" href="styles/style.css">
+        <link rel="stylesheet" type="text/css" href="style.css">
         <!-- Importando a fonte utilizada no projeto -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     </head>
     <body>
-        <nav id="sideMenu">
+        <nav id="nav-menu">
 
             <div id="logo">
                 <p>BINGO ALGÉBRICO</p>
@@ -21,49 +21,49 @@
 
             <p>NAVEGAÇÃO</p>
             <ul>
-                <li id="menuInicio" class="menuItem active">
+                <li id="menuInicio" class="nav-menu-item active">
                     <div>
                         <i class="fas fa-home"></i>
                         <a>Início</a>
                     </div>
                 </li>
-                <li id ="menuTopicos" class="menuItem">
+                <li id ="menuTopicos" class="nav-menu-item">
                     <div>
                         <i class="fas fa-pencil"></i>
                         <a>Tópicos</a>
                     </div>
                 </li>
-                <li id ="menuEquacoes" class="menuItem">
+                <li id ="menuEquacoes" class="nav-menu-item">
                     <div>
                         <i class="fas fa-compass"></i>
                         <a>Equações</a>
                     </div>
                 </li>
-                <li id="menuRestricoes" class="menuItem">
+                <li id="menuRestricoes" class="nav-menu-item">
                     <div>
                         <i class="fas fa-gears"></i>
                         <a>Restrições</a>	
                     </div>
                 </li>
-                <li id="menuBingo" class="menuItem ">
+                <li id="menuBingo" class="nav-menu-item">
                     <div>
                         <i class="fas fa-table"></i>
                         <a>Bingo</a>	
                     </div>
                 </li>
-                <li id ="menuQuestoes" class="menuItem">
+                <li id ="menuQuestoes" class="nav-menu-item">
                     <div>
                         <i class="fas fa-circle-question"></i>
                         <a>Questões</a>
                     </div>
                 </li>
-                <li id="menuCartelas" class="menuItem">
+                <li id="menuCartelas" class="nav-menu-item">
                     <div>
                         <i class="fas fa-image"></i>
                         <a>Cartelas</a>
                     </div>				
                 </li>
-                <li id="menuFinal" class="menuItem">
+                <li id="menuFinal" class="nav-menu-item">
                     <div>
                         <i class="fas fa-users"></i>
                         <a>Final</a>
@@ -78,7 +78,7 @@
             </header>
 
             <main>
-                <div class="conteudo inicio">
+                <div class="page-content inicio">
                     <h2>Início</h2>
                     <hr>
                     <p>Como usar</p>
@@ -94,7 +94,7 @@
                     </ol>
                 </div>
 
-                <div class="conteudo topicos active">
+                <div class="page-content topicos active">
                     <h2>Tópicos</h2>
                     <hr>
 
@@ -145,7 +145,7 @@
                 </div>
 
 
-                <div class="conteudo equacoes">
+                <div class="page-content equacoes">
                     <h2>Equações</h2>
                     <hr>
 
@@ -239,7 +239,7 @@
                 </div>
 
 
-                <div class="conteudo restricoes">
+                <div class="page-content restricoes">
                     <h2>Restrições</h2>
                     <hr>
 
@@ -298,7 +298,7 @@
                 </div>
 
 
-                <div class="conteudo bingo">
+                <div class="page-content bingo">
                     <h2>Bingo</h2>
                     <hr>
                 
@@ -386,7 +386,7 @@
                 </div>
 
 
-                <div class="conteudo questoes">
+                <div class="page-content questoes">
                     <h2>Questões</h2>
                     <hr>
 
@@ -451,7 +451,7 @@
                 </div>
 
 
-                <div class="conteudo cartelas">
+                <div class="page-content cartelas">
                     <h2>Cartelas</h2>
                     <hr>
 
@@ -547,7 +547,7 @@
                 </div>
 
 
-                <div class="conteudo final">
+                <div class="page-content final">
                     <h2>Final</h2>
                     <hr>
                 </div>
@@ -561,6 +561,6 @@
 		<script src="https://unpkg.com/mathjs@11.7.0/lib/browser/math.js"></script>
 		
 		<!-- Carrega todos os scripts de modo centralizado -->
-		<script src="scripts/script.js"></script>
+		<script src="script.js"></script>
     </body>
 </html>

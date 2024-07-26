@@ -1,5 +1,8 @@
-const menuElements = document.querySelectorAll('.menuItem');
-const conteudoElements = document.querySelectorAll('.conteudo');
+// Carrega o estilo associado a este componente
+loadCSS("/src/components/nav-menu/nav-menu.css");
+
+const menuElements = document.querySelectorAll('.nav-menu-item');
+const conteudoElements = document.querySelectorAll('.page-content');
 
 iniciaSeletorAbas();
 

@@ -1,0 +1,104 @@
+
+
+#equacoesDescription {
+    padding: 10px 20px 10px 20px;
+    font-size: 14px;
+    color: var(--colorGray);
+
+}
+
+.equationsList {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.equationCard {
+    margin: 10px;
+    /* border: 1px solid; */
+    border-radius: 7px;
+    width: fit-content;
+    min-width: 150px;
+    max-width: fit-content;
+
+    flex: auto;
+    display: flex;
+    flex-direction: column;
+
+    background-color: white;
+    /* box-shadow: 0 0 0 1px rgba(#000, .05), 0 20px 50px 0 rgba(#000, .1); */
+    box-shadow: 0px 0px 3px 2px var(--colorOffsetWhite);
+    transition: 0.2s;
+}
+
+.equationCard:hover {
+    box-shadow: 0px 0px 3px 2px var(--colorLightBlue);
+}
+
+.equationCard.selected {
+    background-color: var(--colorVeryLightBlue);
+}
+
+.renderEquation {
+    padding-left: 10px;
+    padding-right: 10px;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+
+    min-width: 150px;
+    text-align: center;
+}
+
+.equationName {
+    margin-left: 5px;
+    margin-right: 5px;
+    border-top: 1px solid var(--colorLightGray);
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: bold;
+    font-size: 14px;
+    text-align: center;
+}
+
+.equationFooter {
+    margin: 5px 5px 5px 5px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    font-size: 12px;
+}
+
+.equationStatus {
+    font-size: 10px;
+    color: var(--colorDarkGray);
+}
+
+.editEquationButton {
+    border-radius: 50%;
+    padding: 3px 3px 3px 3px;
+    transition: .25s;
+    cursor: pointer;
+    color: var(--colorLightGray);
+    background-color: var(--colorOffsetWhite);
+}
+
+.editEquationButton:hover {
+    background-color: #4CAF50;
+    color: #FFF;
+}
+
+.deleteEquationButton {
+	border-radius: 50%;
+    padding: 3px 5px 3px 5px;
+	transition: .25s;
+	cursor: pointer;
+	color: var(--colorLightGray);
+    background-color: var(--colorOffsetWhite);
+}
+
+.deleteEquationButton:hover {
+    background-color: #EC4646;
+	color: #FFF;
+}
