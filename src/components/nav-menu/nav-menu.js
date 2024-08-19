@@ -1,5 +1,5 @@
 // Carrega o estilo associado a este componente
-loadCSS("/src/components/nav-menu/nav-menu.css");
+loadCSS("src/components/nav-menu/nav-menu.css");
 
 const menuElements = document.querySelectorAll('.nav-menu-item');
 const conteudoElements = document.querySelectorAll('.page-content');
