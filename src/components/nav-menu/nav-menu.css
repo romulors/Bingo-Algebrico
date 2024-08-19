@@ -51,6 +51,7 @@
 
 .nav-menu-item:hover {
     background-color: var(--colorOffsetWhite);
+    cursor: pointer;
 }
 
 .nav-menu-item > div > i {
