@@ -1,0 +1,15 @@
+# Diretório vazio legado
+misc/
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+*.code-workspace
+
+# Node
+node_modules/
+npm-debug.log*

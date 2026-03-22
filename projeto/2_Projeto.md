@@ -1,6 +1,5 @@
-# Bingo-Algébrico
-Crie cartelas com questões matemáticas para um bingo
-Trata-se de uma Atividade Extensionista para o curso de Engenharia de Software da Uninter.
+# Projeto de Software: Bingo Algébrico
+Projeto desenvolvido por Romulo Rocha para a disciplina de Atividade Extensionista II – Tecnologia Aplicada à Inclusão Digital. Análise precidida na UNINTER, em parceria com a professora Alice Keiber.
 
 ## Objetivo
 
