@@ -6,82 +6,58 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <title>Bingo Algébrico</title>
-        <!-- Estilização da página -->
         <link rel="stylesheet" type="text/css" href="style.css">
-        <!-- Importando a fonte utilizada no projeto -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
     </head>
     <body>
         <nav id="nav-menu">
-
             <div id="logo">
                 <p>BINGO ALGÉBRICO</p>
             </div>
 
             <p>NAVEGAÇÃO</p>
             <ul>
-                <li id="menuInicio" class="nav-menu-item active">
-                    <div>
-                        <i class="fas fa-home"></i>
-                        <a>Início</a>
-                    </div>
+                <li id="menuInicio" class="nav-menu-item active" data-target="inicio">
+                    <div><i class="fas fa-home"></i><a href="#inicio">Início</a></div>
                 </li>
-                <li id ="menuTopicos" class="nav-menu-item">
-                    <div>
-                        <i class="fas fa-pencil"></i>
-                        <a>Tópicos</a>
-                    </div>
+                <li id="menuTopicos" class="nav-menu-item" data-target="topicos">
+                    <div><i class="fas fa-pencil"></i><a href="#topicos">Tópicos</a></div>
                 </li>
-                <li id ="menuEquacoes" class="nav-menu-item">
-                    <div>
-                        <i class="fas fa-compass"></i>
-                        <a>Equações</a>
-                    </div>
+                <li id="menuEquacoes" class="nav-menu-item" data-target="equacoes">
+                    <div><i class="fas fa-compass"></i><a href="#equacoes">Equações</a></div>
                 </li>
-                <li id="menuRestricoes" class="nav-menu-item">
-                    <div>
-                        <i class="fas fa-gears"></i>
-                        <a>Restrições</a>	
-                    </div>
+                <li id="menuRestricoes" class="nav-menu-item" data-target="restricoes">
+                    <div><i class="fas fa-gears"></i><a href="#restricoes">Restrições</a></div>
                 </li>
-                <li id="menuBingo" class="nav-menu-item">
-                    <div>
-                        <i class="fas fa-table"></i>
-                        <a>Bingo</a>	
-                    </div>
+                <li id="menuBingo" class="nav-menu-item" data-target="bingo">
+                    <div><i class="fas fa-table"></i><a href="#bingo">Bingo</a></div>
                 </li>
-                <li id ="menuQuestoes" class="nav-menu-item">
-                    <div>
-                        <i class="fas fa-circle-question"></i>
-                        <a>Questões</a>
-                    </div>
+                <li id="menuQuestoes" class="nav-menu-item" data-target="questoes">
+                    <div><i class="fas fa-circle-question"></i><a href="#questoes">Questões</a></div>
                 </li>
-                <li id="menuCartelas" class="nav-menu-item">
-                    <div>
-                        <i class="fas fa-image"></i>
-                        <a>Cartelas</a>
-                    </div>				
+                <li id="menuCartelas" class="nav-menu-item" data-target="cartelas">
+                    <div><i class="fas fa-image"></i><a href="#cartelas">Cartelas</a></div>
                 </li>
-                <li id="menuFinal" class="nav-menu-item">
-                    <div>
-                        <i class="fas fa-users"></i>
-                        <a>Final</a>
-                    </div>	
+                <li id="menuFinal" class="nav-menu-item" data-target="final">
+                    <div><i class="fas fa-users"></i><a href="#final">Final</a></div>
                 </li>
             </ul>
-
         </nav>
 
-        <div id="page" class="">
-            <header>
-            </header>
+        <div id="appMessage" role="status" aria-live="polite" style="display:none;">
+            <span id="appMessageText"></span>
+            <button id="appMessageAction" type="button" style="margin-left:8px;"></button>
+        </div>
 
+        <div id="page">
             <main>
-                <div class="page-content inicio">
+                <section class="page-content inicio active" data-screen="inicio">
                     <h2>Início</h2>
                     <hr>
-                    <p>Como usar</p>
+                    <p class="section-description">Organize o bingo em etapas curtas, revise o progresso atual e avance diretamente para a próxima configuração necessária.</p>
+                    <div class="inicio-hero">
+                        <p>O fluxo abaixo resume a preparação do Bingo Algébrico. Cada etapa pode ser expandida para mostrar o objetivo e abrir a respectiva tela.</p>
+                    </div>
                     <ol>
                         <li>Defina os tópicos que serão abordados.</li>
                         <li>Informe os modelos de equações a serem utilizados.</li>
@@ -90,477 +66,221 @@
                         <li>Escolha o esquema de distribuições de questões do bingo.</li>
                         <li>Ajuste os aspectos visuais.</li>
                         <li>Confirme as cartelas geradas.</li>
-                        <li>Imprima e o armazene os dados do Bingo.</li>
+                        <li>Imprima e armazene os dados do Bingo.</li>
                     </ol>
-                </div>
 
-                <div class="page-content topicos active">
+                    <div class="status-grid" id="inicioStatus"></div>
+                    <div class="inicio-flow" id="inicioFlow"></div>
+                    <div class="actions-row">
+                        <button class="botao" id="botaoIrTopicos" type="button">Começar em Tópicos</button>
+                    </div>
+                </section>
+
+                <section class="page-content topicos" data-screen="topicos">
                     <h2>Tópicos</h2>
                     <hr>
-
-                    <div class="topicsList">
-                        
-
-                        <div class="topicCard selected">
-                            <span class="topicName">QUATRO OPERAÇÕES</span>
-                            <span class="topicNumberOfQuestions">4 Questões</span>
-                            <div class="topicFooter">
-                                <span class="editTopicButton fas fa-wrench"></span>
-                                <span class="topicStatus">Adicionado</span>
-                                <span class="deleteTopicButton fas fa-xmark"></span>
-                            </div>
+                    <p class="section-description">Selecione os tópicos que farão parte do bingo.</p>
+                    <div class="table-container inline-form-panel">
+                        <div class="form-grid form-grid-topicos">
+                            <label>
+                                <span>Novo tópico</span>
+                                <input type="text" id="inputNovoTopicoNome" placeholder="Ex.: Álgebra básica" maxlength="60">
+                            </label>
                         </div>
-
-
-                        <div class="topicCard selected">
-                            <span class="topicName">FRAÇÕES</span>
-                            <span class="topicNumberOfQuestions">8 Questões</span>
-                            <div class="topicFooter">
-                                <span class="editTopicButton fas fa-wrench"></span>
-                                <span class="topicStatus">Adicionado</span>
-                                <span class="deleteTopicButton fas fa-xmark"></span>
-                            </div>
-                        </div>
-
-
-                        <div class="topicCard">
-                            <span class="topicName">TRIGONOMETRIA</span>
-                            <span class="topicNumberOfQuestions">12 Questões</span>
-                            <div class="topicFooter">
-                                <span class="editTopicButton fas fa-wrench"></span>
-                                <span class="topicStatus">Não adicionado</span>
-                                <span class="deleteTopicButton fas fa-xmark"></span>
-                            </div>
-                        </div>
-
-
-
+                        <p class="helper-text">Use um nome curto e claro. O tópico ficará disponível imediatamente para seleção.</p>
                     </div>
-
-                    <div class = "edita-topico">
-                        <button class="botao" id="botao_adicionarNovoTopico" type="button">Adicionar novo Tópico</button>
-                        <button class="botao" id="botao_salvarTopicos" type="button">Salvar Tópicos</button>
+                    <div class="topicsList" id="topicsList"></div>
+                    <div class="actions-row">
+                        <button class="botao" id="botaoAdicionarNovoTopico" type="button">Adicionar novo Tópico</button>
+                        <button class="botao" id="botaoSalvarTopicos" type="button">Salvar Tópicos</button>
                     </div>
+                </section>
 
-                </div>
-
-
-                <div class="page-content equacoes">
+                <section class="page-content equacoes" data-screen="equacoes">
                     <h2>Equações</h2>
                     <hr>
-
-                    <p id="equacoesDescription">Selecione as equações para o Bingo.</p>
-
-                    <div class="equationsList">
-
-
-                        <div class="equationCard">
-                            <span class="renderEquation">\[{A \over B} + {C \over D} = {E \over F}\]</span>
-                            <span class="equationName">Soma de Fração</span>
-                            <div class="equationFooter">
-                                <span class="editEquationButton fas fa-wrench"></span>
-                                <span class="equationStatus">Não adicionado</span>
-                                <span class="deleteEquationButton fas fa-xmark"></span>
-                            </div>
-                        </div>
-
-
-                        <div class="equationCard selected">
-                            <span class="renderEquation">\[{A \over B} - {C \over D} = {E \over F}\]</span>
-                            <span class="equationName">Subtração de Fração</span>
-                            <div class="equationFooter">
-                                <span class="editEquationButton fas fa-wrench"></span>
-                                <span class="equationStatus">Adicionado</span>
-                                <span class="deleteEquationButton fas fa-xmark"></span>
-                            </div>
-                        </div>
-
+                    <p id="equacoesDescription" class="section-description">Selecione as equações para o Bingo.</p>
+                    <div class="actions-row">
+                        <button class="botao" id="botaoMostrarFormEquacao" type="button">Novo Modelo de Equação</button>
                     </div>
-
-                    <!-- <div class="table-container">
-                        <table data-equacao="A/B + C/D = E/F">
-                            <tr>
-                                <th><p>Selecionado</p></th>
-                                <th><p>Adição de Frações</p></th>
-                                <th><p>Remover</p></th>
-                            </tr>
-                            <tr>
-                                <td><span class="fas fa-check"></span></td>
-                                <td><span>\[{A \over B} + {C \over D} = {E \over F}\]</span></td>
-                                <td><span class="fas fa-xmark"></td>
-                            </tr>
-                        </table>
-
-                        <table data-equacao="A/B - C/D = E/F" >
-                            <tr>
-                                <th><p>Selecionado</p></th>
-                                <th><p>Subtração de Frações</p></th>
-                                <th><p>Remover</p></th>
-                            </tr>
-                            <tr>
-                                <td><span class="fas fa-plus"></span></td>
-                                <td><span>\[{A \over B} - {C \over D} = {E \over F}\]</span></td>
-                                <td><span class="fas fa-xmark"></td>
-                            </tr>
-                        </table>
-
-                        <table data-equacao="A/B * C/D = E/F" >
-                            <tr>
-                                <th><p>Selecionado</p></th>
-                                <th><p>Multiplicação de Frações</p></th>
-                                <th><p>Remover</p></th>
-                            </tr>
-                            <tr>
-                                <td><span class="fas fa-plus"></span></td>
-                                <td><span>\[{A \over B} * {C \over D} = {E \over F}\]</span></td>
-                                <td><span class="fas fa-xmark"></td>
-                            </tr>
-                        </table>
-
-                        <table data-equacao="A/B : C/D = E/F" >
-                            <tr>
-                                <th><p>Selecionado</p></th>
-                                <th><p>Divisão de Frações</p></th>
-                                <th><p>Remover</p></th>
-                            </tr>
-                            <tr>
-                                <td><span class="fas fa-plus"></span></td>
-                                <td><span>\[{A \over B} : {C \over D} = {E \over F}\]</span></td>
-                                <td><span class="fas fa-xmark"></td>
-                            </tr>
-                        </table>
-
-                        <div class = "edita-equacoes">
-                            <button class="botao" type="button">Adicionar nova Equação</button>
-                            <button class="botao" type="button">Salvar Equações</button>
+                    <div class="table-container inline-form-panel">
+                        <div id="equacaoFormPanel" class="form-grid form-grid-equacoes" style="display:none;">
+                            <div style="display:flex;gap:1rem;align-items:flex-start;">
+                                <div style="flex:1;min-width:250px;">
+                                    <label>
+                                        <span>Tópico</span>
+                                        <select id="inputNovaEquacaoTopico"></select>
+                                    </label>
+                                    <label>
+                                        <span>Nome da equação</span>
+                                        <input type="text" id="inputNovaEquacaoNome" placeholder="Ex.: Soma de Frações avançada" maxlength="80">
+                                    </label>
+                                    <label>
+                                        <span>Modelo de Equação</span>
+                                        <input type="text" id="inputNovaEquacaoModelo" placeholder="Ex.: A/B + C/D">
+                                    </label>
+                                    <label>
+                                        <span>Resposta</span>
+                                        <input type="text" id="inputNovaEquacaoResposta" placeholder="Ex.: E/F">
+                                    </label>
+                                    <label class="form-grid-wide" style="display:none;">
+                                        <span>Fórmula da resposta</span>
+                                        <input type="text" id="inputNovaEquacaoFormula" placeholder="Ex.: (A*D+B*C)/(B*D)">
+                                    </label>
+                                    <div class="form-actions" style="margin-top:0.5rem;">
+                                        <button class="botao" id="botaoAdicionarEquacao" type="button">Adicionar Equação</button>
+                                    </div>
+                                </div>
+                                <div id="equacaoPreview" style="flex:1;border:1px solid #ddd;padding:0.75rem;border-radius:4px;min-height:140px;background:#fff;">
+                                    <div style="font-weight:600;margin-bottom:0.5rem;">Pré-visualização</div>
+                                    <div id="equacaoPreviewMath" class="renderEquationPreview">&nbsp;</div>
+                                </div>
+                            </div>
                         </div>
-                    </div> -->
+                        <p class="helper-text">As variáveis são detectadas automaticamente a partir do modelo e da resposta.</p>
+                    </div>
+                    <div class="equationsList" id="equationsList"></div>
+                    <div class="actions-row">
+                        <button class="botao" id="botaoAdicionarEquacao" type="button">Adicionar nova Equação</button>
+                        <button class="botao" id="botaoSalvarEquacoes" type="button">Salvar Equações</button>
+                    </div>
+                </section>
 
-                </div>
-
-
-                <div class="page-content restricoes">
+                <section class="page-content restricoes" data-screen="restricoes">
                     <h2>Restrições</h2>
                     <hr>
-
-                    <div class="table-container ">
-                        <table>
-                            <tr>
-                                <th>
-                                    <p>Ações</p>
-                                </th>
-                                <th>
-                                    <p>Parâmetros</p>
-                                </th>
-                                <th>
-                                    <p>Remover</p>
-                                </th>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p><span class="fas fa-check"></span></p>
-                                    <br>
-                                    <p><span class="fas fa-wrench"></span></span></p>
-                                </td>
-                                <td>
-                                    <p>Restrição: #001</p>
-                                    <p>Condição: Usar apenas números Inteiros</p>
-                                    <p>Equações: Adição de Frações</p>
-                                    <p>Variáveis: A,B,C</p>
-                                </td>
-                                <td>
-                                    <p><span class="fas fa-xmark"></span></p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p><span class="fas fa-plus"></span></p>
-                                    <br>
-                                    <p><span class="fas fa-wrench"></span></span></p>
-                                </td>
-                                <td>
-                                    <p>Restrição: #002</p>
-                                    <p>Condição: Número entre 1 e 10</p>
-                                    <p>Equações: Adição de Frações</p>
-                                    <p>Variáveis: D</p>
-                                </td>
-                                <td>
-                                    <p><span class="fas fa-xmark"></span></p>
-                                </td>
-                            </tr>
-                        </table>
-
-                        <div class = "edita-restricoes">
-                            <button class="botao" type="button">Adicionar nova Restrição</button>
-                            <button class="botao" type="button">Salvar Restrições</button>
-                        </div>
+                    <p class="section-description">Defina intervalos por variável para as equações selecionadas.</p>
+                    <div class="table-container" id="restricoesContainer"></div>
+                    <div class="actions-row">
+                        <button class="botao" id="botaoSalvarRestricoes" type="button">Salvar Restrições</button>
                     </div>
-                </div>
+                </section>
 
-
-                <div class="page-content bingo">
+                <section class="page-content bingo" data-screen="bingo">
                     <h2>Bingo</h2>
                     <hr>
-                
-                    <div class="table-container ">
+                    <p class="section-description">Defina os parâmetros para geração automática das questões.</p>
+                    <div class="table-container" id="bingoParametrosContainer">
                         <table>
-                            <tr>
-                                <th>
-                                    <p>Padrão</p>
-                                </th>
-                                <th>
-                                    <p>Parâmetros</p>
-                                </th>
-                                <th>
-                                    <p>Valor</p>
-                                </th>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    <p><span class="fas fa-wrench"></span></span></p>
-                                </td>
-                                <td>
-                                    <p>Número de questões únicas</p>
-                                </td>
-                                <td>
-                                    <input type="number" class="maxWidth" id="numeroQuestoesUnicas" name="numeroQuestoesUnicas"
-                                    min="1" max="100" value="20">
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    <p><span class="fas fa-wrench"></span></span></p>
-                                </td>
-                                <td>
-                                    <p>Número de cartelas</p>
-                                </td>
-                                <td>
-                                    <input type="number" class="maxWidth" id="numeroCartelas" name="numeroCartelas" min="1" max="100" value="10">
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    <p><span class="fas fa-wrench"></span></span></p>
-                                </td>
-                                <td>
-                                    <p>Número de questões por cartela</p>
-                                </td>
-                                <td>
-                                    <input type="number" class="maxWidth" id="numeroQuestoesCartela" name="numeroQuestoesCartela" min="1" max="20" value="6">
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    <p><span class="fas fa-wrench"></span></span></p>
-                                </td>
-                                <td>
-                                    <p>Número de repetições por questão</p>
-                                </td>
-                                <td>
-                                    <input class="maxWidth" type="number" id="numeroRepeticoesQuestao" name="numeroRepeticoesQuestao" min="1" max="10" value="3">
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    <p><span class="fas fa-wrench"></span></span></p>
-                                </td>
-                                <td>
-                                    <p>Número de tipos de questões</p>
-                                </td>
-                                <td>
-                                    <input class="maxWidth" type="number" id="numeroTiposQuestoes" name="numeroTiposQuestoes" min="1" max="6" value="4" maxlength="3">
-                                </td>
-                            </tr>
+                            <thead>
+                                <tr>
+                                    <th>Parâmetro</th>
+                                    <th>Valor</th>
+                                    <th>Descrição</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Número de questões únicas</td>
+                                    <td><input type="number" id="paramNumQuestoesUnicas" min="1" max="300" value="20"></td>
+                                    <td>Total de questões distintas geradas no banco do bingo.</td>
+                                </tr>
+                                <tr>
+                                    <td>Número de cartelas</td>
+                                    <td><input type="number" id="paramNumCartelas" min="1" max="200" value="20"></td>
+                                    <td>Total de cartelas que serão montadas posteriormente.</td>
+                                </tr>
+                                <tr>
+                                    <td>Questões por cartela</td>
+                                    <td><input type="number" id="paramNumQuestoesPorCartela" min="1" max="25" value="6"></td>
+                                    <td>Quantidade de questões exibidas em cada cartela.</td>
+                                </tr>
+                                <tr>
+                                    <td>Mínimo de repetições</td>
+                                    <td><input type="number" id="paramMinRepeticoes" min="1" max="50" value="2"></td>
+                                    <td>Quantidade mínima que cada questão pode aparecer nas cartelas.</td>
+                                </tr>
+                                <tr>
+                                    <td>Máximo de repetições</td>
+                                    <td><input type="number" id="paramMaxRepeticoes" min="1" max="50" value="5"></td>
+                                    <td>Quantidade máxima que cada questão pode aparecer nas cartelas.</td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
-
-                    <div class = "edita-bingo">
-                        <button class="botao" type="button">Carregar Configurações</button>
-                        <button class="botao" type="button">Salvar Configurações</button>
+                    <div id="bingoValidationMessage" class="section-description"></div>
+                    <div class="actions-row">
+                        <button class="botao" id="botaoSalvarParametrosBingo" type="button">Salvar parâmetros</button>
+                        <button class="botao" id="botaoGerarQuestoes" type="button">Gerar questões</button>
                     </div>
-                </div>
+                </section>
 
-
-                <div class="page-content questoes">
+                <section class="page-content questoes" data-screen="questoes">
                     <h2>Questões</h2>
                     <hr>
-
-                    <div class="table-container">
-                        <table data-equacao="1/2 + 3/4 = 5/4">
-                            <tr>
-                                <th><p>Editar</p></th>
-                                <th><p>Questão #001</p></th>
-                                <th><p>Alternar</p></th>
-                            </tr>
-                            <tr>
-                                <td><span class="fas fa-wrench"></span></td>
-                                <td><span>\[{1 \over 2} + {3 \over 4} = {5 \over 4}\]</span></td>
-                                <td><span class="fas fa-rotate-right"></td>
-                            </tr>
-                        </table>
-
-                        <table data-equacao="5/3 - 4/3 = 1/3" >
-                            <tr>
-                                <th><p>Editar</p></th>
-                                <th><p>Questão #002</p></th>
-                                <th><p>Alternar</p></th>
-                            </tr>
-                            <tr>
-                                <td><span class="fas fa-wrench"></span></td>
-                                <td><span>\[{5 \over 3} - {4 \over 3} = {1 \over 3}\]</span></td>
-                                <td><span class="fas fa-rotate-right"></td>
-                            </tr>
-                        </table>
-
-                        <table data-equacao="1/3 * 1/2 = 1/6" >
-                            <tr>
-                                <th><p>Editar</p></th>
-                                <th><p>Questão #003</p></th>
-                                <th><p>Alternar</p></th>
-                            </tr>
-                            <tr>
-                                <td><span class="fas fa-wrench"></span></td>
-                                <td><span>\[{1 \over 3} * {1 \over 6} = {1 \over 6}\]</span></td>
-                                <td><span class="fas fa-rotate-right"></td>
-                            </tr>
-                        </table>
-
-                        <table data-equacao="A/B : C/D = E/F" >
-                            <tr>
-                                <th><p>Editar</p></th>
-                                <th><p>Questão #004</p></th>
-                                <th><p>Alternar</p></th>
-                            </tr>
-                            <tr>
-                                <td><span class="fas fa-wrench"></span></td>
-                                <td><span>\[{1 \over 2} : {3 \over 4} = {2 \over 3}\]</span></td>
-                                <td><span class="fas fa-rotate-right"></td>
-                            </tr>
-                        </table>
-
-                        <div class = "edita-equacoes">
-                            <button class="botao" type="button">Gerar novas Questões</button>
-                            <button class="botao" type="button">Salvar Questões</button>
-                        </div>
+                    <p class="section-description">Questões geradas a partir das equações e restrições selecionadas.</p>
+                    <div id="questoesResumo" class="section-description"></div>
+                    <div id="questoesContainer" class="table-container"></div>
+                    <div class="actions-row">
+                        <button class="botao" id="botaoRegenerarQuestoes" type="button">Regenerar todas</button>
                     </div>
-                </div>
+                </section>
 
-
-                <div class="page-content cartelas">
+                <section class="page-content cartelas" data-screen="cartelas">
                     <h2>Cartelas</h2>
                     <hr>
-
-                    <div id="table-cartela" class="table-container">
-                        <table class="cartela">
-                            <tr>
-                                <th>
-                                    Cartela #001
-                                </th>
-                                <th>
-                                    
-                                </th>
-                                <th>
-                                    Versão Prof
-                                </th>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    <span>Questão #1</span>
-                                    <span>\[{1 \over 2} + {3 \over 4} = {5 \over 4}\]</span>
-                                </td>
-                                <td>
-                                    <span>Questão #16</span>
-                                    <span>\[{1 \over 2} + {3 \over 4} = {5 \over 4}\]</span>
-                                </td>
-                                <td>
-                                    <span>Questão #4</span>
-                                    <span>\[{1 \over 2} + {3 \over 4} = {5 \over 4}\]</span>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    <span>Questão #9</span>
-                                    <span>\[{1 \over 2} + {3 \over 4} = {5 \over 4}\]</span>
-                                </td>
-                                <td>
-                                    <span>Questão #3</span>
-                                    <span>\[{1 \over 2} + {3 \over 4} = {5 \over 4}\]</span>
-                                </td>
-                                <td>
-                                    <span>Questão #5</span>
-                                    <span>\[{1 \over 2} + {3 \over 4} = {5 \over 4}\]</span>
-                                </td>
-                            </tr>
-                        </table>
-
-                        <table class="cartela">
-                            <tr>
-                                <th>
-                                    Cartela #001
-                                </th>
-                                <th>
-                                    
-                                </th>
-                                <th>
-                                    Versão Aluno
-                                </th>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    <span>Questão #1</span>
-                                    <span>\[{1 \over 2} + {3 \over 4} =\]</span>
-                                </td>
-                                <td>
-                                    <span>Questão #16</span>
-                                    <span>\[{1 \over 2} + {3 \over 4} = \]</span>
-                                </td>
-                                <td>
-                                    <span>Questão #4</span>
-                                    <span>\[{1 \over 2} + {3 \over 4} = \]</span>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    <span>Questão #9</span>
-                                    <span>\[{1 \over 2} + {3 \over 4} = \]</span>
-                                </td>
-                                <td>
-                                    <span>Questão #3</span>
-                                    <span>\[{1 \over 2} + {3 \over 4} = \]</span>
-                                </td>
-                                <td>
-                                    <span>Questão #5</span>
-                                    <span>\[{1 \over 2} + {3 \over 4} = \]</span>
-                                </td>
-                            </tr>
-                        </table>
+                    <p class="section-description">Gere e visualize cartelas nas versões professor e aluno.</p>
+                    <div id="cartelasResumo" class="section-description"></div>
+                    <div class="actions-row no-print">
+                        <button class="botao" id="botaoGerarCartelas" type="button">Gerar cartelas</button>
+                        <button class="botao" id="botaoAlternarModoCartela" type="button">Modo: Professor</button>
+                        <button class="botao" id="botaoImprimirCartelas" type="button">Imprimir cartelas</button>
                     </div>
-                </div>
+                    <div id="cartelasContainer" class="cartelas-grid"></div>
+                </section>
 
-
-                <div class="page-content final">
+                <section class="page-content final" data-screen="final">
                     <h2>Final</h2>
                     <hr>
-                </div>
+                    <p class="section-description">Exporte/importe configurações e personalize o tema visual do aplicativo.</p>
+
+                    <div class="table-container final-panel">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Configuração visual</th>
+                                    <th>Valor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Nome do Bingo</td>
+                                    <td><input type="text" id="temaNomeBingo" maxlength="60" value="BINGO ALGÉBRICO"></td>
+                                </tr>
+                                <tr>
+                                    <td>Nome da Instituição</td>
+                                    <td><input type="text" id="temaNomeInstituicao" maxlength="80" value=""></td>
+                                </tr>
+                                <tr>
+                                    <td>Cor primária</td>
+                                    <td><input type="color" id="temaCorPrimaria" value="#03233e"></td>
+                                </tr>
+                                <tr>
+                                    <td>Cor de destaque</td>
+                                    <td><input type="color" id="temaCorDestaque" value="#64b0f2"></td>
+                                </tr>
+                                <tr>
+                                    <td>Cor de fundo</td>
+                                    <td><input type="color" id="temaCorFundo" value="#f3f4fa"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="finalResumo" class="section-description"></div>
+
+                    <div class="actions-row">
+                        <button class="botao" id="botaoAplicarTema" type="button">Aplicar tema</button>
+                        <button class="botao" id="botaoExportarConfiguracao" type="button">Exportar configuração</button>
+                        <button class="botao" id="botaoImportarConfiguracao" type="button">Importar configuração</button>
+                        <input type="file" id="inputImportarConfiguracao" accept="application/json" style="display:none;">
+                    </div>
+                </section>
             </main>
         </div>
 
-        <!-- Importando o MathJax para renderizar as equações matemáticas -->
-		<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-		<!-- Utilizamos math.js para conseguir realizar cálculos simbólicos com variáveis -->
-		<script src="https://unpkg.com/mathjs@11.7.0/lib/browser/math.js"></script>
-		
-		<!-- Carrega todos os scripts de modo centralizado -->
-		<script src="script.js"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="https://unpkg.com/mathjs@11.7.0/lib/browser/math.js"></script>
+        <script src="script.js"></script>
     </body>
 </html>
