@@ -1,0 +1,7 @@
+{
+    "nomeTopico": "Geometria Plana",
+    "nomeEquacao": "Área do Trapézio",
+    "modeloEquacao": "\\frac{(A + B) \\cdot C}{2}",
+    "resposta": "R",
+    "formulaResposta": "((A+B)*C)/2"
+}

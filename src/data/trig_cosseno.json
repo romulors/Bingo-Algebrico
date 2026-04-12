@@ -1,0 +1,7 @@
+{
+    "nomeTopico": "Trigonometria",
+    "nomeEquacao": "Cosseno no Triângulo Retângulo",
+    "modeloEquacao": "\\cos(\\theta) = \\frac{A}{C}",
+    "resposta": "R",
+    "formulaResposta": "A/C"
+}

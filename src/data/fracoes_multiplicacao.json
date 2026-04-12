@@ -2,5 +2,6 @@
     "nomeTopico": "Frações",
     "nomeEquacao": "Multiplicação de Frações",
     "modeloEquacao": "\\frac{A}{B} \\cdot \\frac{C}{D}",
-    "resposta": "\\frac{E}{F}"
+    "resposta": "\\frac{E}{F}",
+    "formulaResposta": "(A*C)/(B*D)"
 }

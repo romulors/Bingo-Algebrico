@@ -1,5 +1,6 @@
 import { renderMath } from "../../app/utils/ui.js";
-import { MathUtils } from "../../app/services/math-utils.js";
+import { createCartelaCard } from "../ui/cartela-card/cartela-card.js";
+import { createCoverSheet } from "../ui/cover-sheet/cover-sheet.js";
 
 export function createTelaCartelas({ elements, state, saveState, showToast, navigateTo, renderAll, validateBingoParams, syncBingoParamsFromInputs, renderBingo }) {
     // ─── Helpers ─────────────────────────────────────────────────────────────────
@@ -96,63 +97,15 @@ export function createTelaCartelas({ elements, state, saveState, showToast, navi
             return;
         }
 
-        const theme = state.visualTheme || {};
-        const params = state.bingoParams;
-        const selectedTopics = state.topics.filter((t) => t.selected);
-        const selectedEquations = state.equations.filter((eq) => eq.selected);
-
-        const topicRows = selectedTopics.map((t) => `<tr><td>${t.name}</td></tr>`).join("");
-
-        const eqByTopic = {};
-        selectedEquations.forEach((eq) => {
-            const topic = state.topics.find((t) => t.id === eq.topicId);
-            const topicName = topic ? topic.name : "Sem tópico";
-            if (!eqByTopic[topicName]) eqByTopic[topicName] = [];
-            eqByTopic[topicName].push(eq.name);
+        const coverSheet = createCoverSheet({
+            theme: state.visualTheme || {},
+            params: state.bingoParams,
+            selectedTopics: state.topics.filter((t) => t.selected),
+            selectedEquations: state.equations.filter((eq) => eq.selected),
         });
 
-        const eqRows = Object.entries(eqByTopic).map(([topicName, eqNames]) =>
-            eqNames.map((name, i) => `
-                <tr>
-                    ${i === 0 ? `<td rowspan="${eqNames.length}" style="vertical-align:top;font-weight:600">${topicName}</td>` : ""}
-                    <td>${name}</td>
-                </tr>
-            `).join("")
-        ).join("");
-
-        elements.folhaRostoImpressao.innerHTML = `
-            <div class="cover-sheet">
-                <div class="cover-header">
-                    <div class="cover-title">${theme.nomeBingo || "BINGO ALGÉBRICO"}</div>
-                    ${theme.nomeInstituicao ? `<div class="cover-subtitle">${theme.nomeInstituicao}</div>` : ""}
-
-                </div>
-
-                <div class="cover-section">
-                    <h4>Parâmetros do Bingo</h4>
-                    <table class="cover-table">
-                        <tr><td>Questões únicas</td><td>${params.numQuestoesUnicas}</td></tr>
-                        <tr><td>Número de cartelas</td><td>${params.numCartelas}</td></tr>
-                        <tr><td>Questões por cartela</td><td>${params.numQuestoesPorCartela}</td></tr>
-                        <tr><td>Mín. repetições</td><td>${params.minRepeticoes}</td></tr>
-                        <tr><td>Máx. repetições</td><td>${params.maxRepeticoes}</td></tr>
-                    </table>
-                </div>
-
-                <div class="cover-section">
-                    <h4>Tópicos e Equações Selecionadas</h4>
-                    <table class="cover-table">${eqRows}</table>
-                </div>
-
-                <div class="cover-section">
-                    <h4>Tema visual</h4>
-                    <table class="cover-table">
-                        <tr><td>Cor primária</td><td><span class="cover-swatch" style="background:${theme.corPrimaria}"></span> ${theme.corPrimaria}</td></tr>
-                        <tr><td>Cor de destaque</td><td><span class="cover-swatch" style="background:${theme.corDestaque}"></span> ${theme.corDestaque}</td></tr>
-                    </table>
-                </div>
-            </div>
-        `;
+        elements.folhaRostoImpressao.innerHTML = "";
+        elements.folhaRostoImpressao.appendChild(coverSheet);
     }
 
     // ─── Render ──────────────────────────────────────────────────────────────────
@@ -174,44 +127,20 @@ export function createTelaCartelas({ elements, state, saveState, showToast, navi
         elements.cartelasResumo.textContent = `Total de cartelas: ${state.generatedCards.length}. Visualização atual: ${state.cardDisplayMode}.`;
 
         const showHeader = isToggleOn(elements.toggleCabecalhoCartela);
-        const nomeBingo = state.visualTheme?.nomeBingo || "BINGO ALGÉBRICO";
-        const nomeInstituicao = state.visualTheme?.nomeInstituicao || "";
 
-        const cardsMarkup = state.generatedCards.map((card, index) => {
-            const itemMarkup = card.questions.map((questionId) => {
-                const question = questionMap.get(questionId);
-                if (!question) return "";
+        elements.cartelasContainer.innerHTML = "";
+        state.generatedCards.forEach((card, index) => {
+            const cardEl = createCartelaCard({
+                card,
+                cardIndex: index,
+                questionMap,
+                mode: state.cardDisplayMode,
+                showHeader,
+                theme: state.visualTheme,
+            });
+            elements.cartelasContainer.appendChild(cardEl);
+        });
 
-                const expression = state.cardDisplayMode === "professor"
-                    ? `${question.enunciado} = ${MathUtils.fractionToLatex(question.resposta)}`
-                    : `${question.enunciado} = \\square`;
-
-                return `
-                    <div class="cartela-item">
-                        <span class="numero">Questão #${String(question.numero).padStart(3, "0")}</span>
-                        <div class="question-equation">\\[${expression}\\]</div>
-                    </div>
-                `;
-            }).join("");
-
-            const headerHtml = showHeader ? `
-                <div class="cartela-header-print">
-                    <span>${nomeBingo}</span>
-                    ${nomeInstituicao ? `<span>${nomeInstituicao}</span>` : "<span></span>"}
-                    <span>Cartela #${String(index + 1).padStart(3, "0")}</span>
-                </div>
-            ` : "";
-
-            return `
-                <article class="cartela-card">
-                    ${headerHtml}
-                    <h3>Cartela #${String(index + 1).padStart(3, "0")}</h3>
-                    <div class="cartela-lista">${itemMarkup}</div>
-                </article>
-            `;
-        }).join("");
-
-        elements.cartelasContainer.innerHTML = cardsMarkup;
         buildCoverSheet();
         renderMath(elements.cartelasContainer);
     }

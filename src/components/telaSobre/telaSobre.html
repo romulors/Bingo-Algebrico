@@ -1,0 +1,158 @@
+<link rel="stylesheet" href="src/components/telaSobre/telaSobre.css">
+
+<h2>Sobre</h2>
+<hr>
+
+<!-- Hero -->
+<div class="sobre-hero">
+    <div class="sobre-hero-icon"><i class="fas fa-dice"></i></div>
+    <p class="sobre-hero-title">Bingo Algébrico</p>
+    <p class="sobre-hero-subtitle">
+        Aplicativo web para auxiliar professores de matemática a criar atividades lúdicas de
+        Bingo Algébrico de forma rápida e automatizada — sem necessidade de instalação.
+    </p>
+    <div class="sobre-hero-badges">
+        <span class="sobre-hero-badge"><i class="fas fa-graduation-cap"></i> UNINTER</span>
+        <span class="sobre-hero-badge"><i class="fas fa-code"></i> Engenharia de Software</span>
+        <span class="sobre-hero-badge"><i class="fas fa-globe"></i> Atividade Extensionista</span>
+    </div>
+</div>
+
+<!-- Funcionalidades -->
+<div class="sobre-section">
+    <h3 class="sobre-section-title"><i class="fas fa-star"></i> Funcionalidades</h3>
+    <div class="sobre-feature-grid">
+        <div class="sobre-feature-card">
+            <div class="sobre-feature-icon"><i class="fas fa-pencil"></i></div>
+            <span>Seleção e customização de tópicos e modelos de equações</span>
+        </div>
+        <div class="sobre-feature-card">
+            <div class="sobre-feature-icon"><i class="fas fa-gears"></i></div>
+            <span>Restrições de variáveis por equação: intervalos e tipo numérico</span>
+        </div>
+        <div class="sobre-feature-card">
+            <div class="sobre-feature-icon"><i class="fas fa-sliders"></i></div>
+            <span>Parâmetros do bingo: questões únicas, cartelas e limites de repetição</span>
+        </div>
+        <div class="sobre-feature-card">
+            <div class="sobre-feature-icon"><i class="fas fa-circle-question"></i></div>
+            <span>Geração automática de questões com avaliação da fórmula da resposta</span>
+        </div>
+        <div class="sobre-feature-card">
+            <div class="sobre-feature-icon"><i class="fas fa-image"></i></div>
+            <span>Geração e distribuição de cartelas para alunos e professor</span>
+        </div>
+        <div class="sobre-feature-card">
+            <div class="sobre-feature-icon"><i class="fas fa-bolt"></i></div>
+            <span>Presets prontos para uso: Frações, Operações Básicas e mais</span>
+        </div>
+        <div class="sobre-feature-card">
+            <div class="sobre-feature-icon"><i class="fas fa-palette"></i></div>
+            <span>Tema visual personalizável: cores, nome do bingo e instituição</span>
+        </div>
+        <div class="sobre-feature-card">
+            <div class="sobre-feature-icon"><i class="fas fa-file-import"></i></div>
+            <span>Exportação e importação de configuração e dados em formato JSON</span>
+        </div>
+        <div class="sobre-feature-card">
+            <div class="sobre-feature-icon"><i class="fas fa-list-ul"></i></div>
+            <span>Log de eventos e ações da sessão</span>
+        </div>
+    </div>
+</div>
+
+<!-- Tecnologias -->
+<div class="sobre-section">
+    <h3 class="sobre-section-title"><i class="fas fa-microchip"></i> Tecnologias</h3>
+    <div class="sobre-tech-pills">
+        <span class="sobre-tech-pill"><i class="fab fa-js"></i> JavaScript ES Modules</span>
+        <span class="sobre-tech-pill"><i class="fab fa-html5"></i> HTML5 + CSS3</span>
+        <span class="sobre-tech-pill"><i class="fas fa-square-root-variable"></i> MathJax 3</span>
+        <span class="sobre-tech-pill"><i class="fas fa-calculator"></i> math.js</span>
+        <span class="sobre-tech-pill"><i class="fas fa-icons"></i> Font Awesome 6</span>
+        <span class="sobre-tech-pill"><i class="fas fa-database"></i> localStorage</span>
+    </div>
+</div>
+
+<!-- Arquitetura -->
+<div class="sobre-section">
+    <h3 class="sobre-section-title"><i class="fas fa-layer-group"></i> Arquitetura</h3>
+    <div class="sobre-arch-block">
+        <p>
+            O sistema é uma <strong>SPA (Single Page Application)</strong> com roteamento por hash de URL
+            (<code>#tela</code>). A interface é composta por componentes lazy-mounted via <code>loadHTML</code>
+            e fábricas <code>createTela*()</code>, que recebem o estado e as dependências por injeção — sem
+            framework, apenas ES Modules nativos.
+        </p>
+        <p>
+            O estado central é gerenciado por <code>AppState</code> (extensão de <code>EventTarget</code>),
+            com modelos ES6: <code>Topic</code>, <code>Equation</code>, <code>Question</code>,
+            <code>BingoCard</code>, <code>BingoParams</code>, <code>VisualTheme</code> e <code>RestrictionConfig</code>.
+            Serviços independentes tratam o carregamento de dados (<code>data-loader.js</code>) e a
+            avaliação matemática (<code>math-utils.js</code>).
+        </p>
+    </div>
+</div>
+
+<!-- Aprendizados -->
+<div class="sobre-section">
+    <h3 class="sobre-section-title"><i class="fas fa-lightbulb"></i> Aprendizados</h3>
+    <div class="sobre-learning-block">
+        Durante o desenvolvimento, foram explorados conceitos como modularização com ES Modules nativos,
+        gerenciamento de estado sem framework, injeção de dependência em componentes funcionais,
+        renderização de expressões matemáticas no navegador e geração algorítmica de conteúdo educacional
+        com restrições parametrizadas. Os principais desafios foram a sincronização de estado entre
+        componentes independentes e a garantia de validade matemática nas questões geradas.
+    </div>
+</div>
+
+<!-- Status -->
+<div class="sobre-section">
+    <h3 class="sobre-section-title"><i class="fas fa-circle-dot"></i> Status</h3>
+    <div class="sobre-status">
+        <i class="fas fa-circle-check"></i> Em desenvolvimento ativo
+    </div>
+</div>
+
+<!-- Próximos passos -->
+<div class="sobre-section">
+    <h3 class="sobre-section-title"><i class="fas fa-map"></i> Próximos passos</h3>
+    <div class="sobre-next-list">
+        <div class="sobre-next-item">
+            <i class="fas fa-arrow-right"></i>
+            Painel de sorteio de questões em tempo real durante a atividade em sala
+        </div>
+        <div class="sobre-next-item">
+            <i class="fas fa-arrow-right"></i>
+            Ferramenta de cópia de cartelas existentes
+        </div>
+        <div class="sobre-next-item">
+            <i class="fas fa-arrow-right"></i>
+            Validação e verificação do vencedor do bingo
+        </div>
+        <div class="sobre-next-item">
+            <i class="fas fa-arrow-right"></i>
+            Suporte a mais tipos de operações matemáticas
+        </div>
+    </div>
+</div>
+
+<!-- Autoria -->
+<div class="sobre-section">
+    <h3 class="sobre-section-title"><i class="fas fa-users"></i> Autoria</h3>
+    <div class="sobre-author-grid">
+        <div class="sobre-author-card">
+            <div class="sobre-author-avatar"><i class="fas fa-code"></i></div>
+            <span class="sobre-author-name">Romulo Rocha Santos</span>
+            <span class="sobre-author-role">Engenheiro de Software</span>
+        </div>
+        <div class="sobre-author-card">
+            <div class="sobre-author-avatar"><i class="fas fa-chalkboard-teacher"></i></div>
+            <span class="sobre-author-name">Alice Francisca Keiber</span>
+            <span class="sobre-author-role">Professora de Matemática</span>
+        </div>
+    </div>
+    <p class="sobre-footer-note">
+        Atividade Extensionista II — Tecnologia Aplicada à Inclusão Digital · UNINTER
+    </p>
+</div>

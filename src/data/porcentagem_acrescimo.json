@@ -1,0 +1,7 @@
+{
+    "nomeTopico": "Porcentagem",
+    "nomeEquacao": "Acréscimo Percentual",
+    "modeloEquacao": "B \\cdot \\left(1 + \\frac{A}{100}\\right)",
+    "resposta": "R",
+    "formulaResposta": "B*(1+A/100)"
+}

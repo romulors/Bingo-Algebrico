@@ -1,0 +1,7 @@
+{
+    "nomeTopico": "Estatística",
+    "nomeEquacao": "Média de Três Valores",
+    "modeloEquacao": "\\frac{A + B + C}{3}",
+    "resposta": "R",
+    "formulaResposta": "(A+B+C)/3"
+}

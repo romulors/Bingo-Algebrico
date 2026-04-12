@@ -1,0 +1,7 @@
+{
+    "nomeTopico": "Trigonometria",
+    "nomeEquacao": "Tangente no Triângulo Retângulo",
+    "modeloEquacao": "\\tan(\\theta) = \\frac{A}{B}",
+    "resposta": "R",
+    "formulaResposta": "A/B"
+}

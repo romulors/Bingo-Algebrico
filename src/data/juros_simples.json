@@ -1,0 +1,7 @@
+{
+    "nomeTopico": "Juros Simples",
+    "nomeEquacao": "Juros Simples",
+    "modeloEquacao": "\\frac{C \\cdot A \\cdot B}{100}",
+    "resposta": "R",
+    "formulaResposta": "C*A*B/100"
+}

@@ -1,8 +1,8 @@
-import { RESPONSE_FORMULA_BY_EQUATION } from "../../app/constants.js";
 import { extractVariables } from "../../app/services/data-loader.js";
 import { debounce, renderMath } from "../../app/utils/ui.js";
+import { createEquationCard } from "../ui/equation-card/equation-card.js";
 
-export function createTelaEquacoes({ elements, state, renderAll, saveState, showToast, navigateTo, onFocusRestricoes, onManualConfigChange }) {
+export function createTelaEquacoes({ elements, state, renderAll, saveState, showToast, navigateTo, onFocusRestricoes, onManualConfigChange, onEquationToggle }) {
     function updateEquationPreview() {
         if (!elements.equacaoPreviewMath) return;
         const model = (elements.inputNovaEquacaoModelo?.value || "").trim();
@@ -84,49 +84,27 @@ export function createTelaEquacoes({ elements, state, renderAll, saveState, show
             return;
         }
 
-        available.forEach((equation) => {
+        const sorted = [...available].sort((a, b) => a.name.localeCompare(b.name, "pt"));
+
+        sorted.forEach((equation) => {
             const topic = state.topics.find((topicItem) => topicItem.id === equation.topicId);
-            const card = document.createElement("article");
-            card.className = `equationCard ${equation.selected ? "selected" : ""}`;
-
-            card.innerHTML = `
-                <span class="renderEquation">\\(${equation.model} = ${equation.responseModel}\\)</span>
-                <span class="equationName">${equation.name}</span>
-                <div class="equationFooter">
-                    <span class="badge">${topic ? topic.name : "Sem tópico"}</span>
-                    <span class="equationStatus">${equation.selected ? "Adicionada" : "Não adicionada"}</span>
-                    <span class="equationActions">
-                        <span class="icon-btn primary editEquationRestrictionsButton" title="Editar definição da equação"><i class="fas fa-wrench"></i></span>
-                        <span class="icon-btn danger deleteEquationButton" title="Remover equação"><i class="fas fa-xmark"></i></span>
-                    </span>
-                </div>
-                <div class="equationLinkRow">
-                    <button class="text-link-button viewRestrictionsLink" type="button">Abrir restrições</button>
-                </div>
-            `;
-
-            card.addEventListener("click", () => {
-                equation.selected = !equation.selected;
-                onManualConfigChange?.();
-                renderAll();
-                saveState();
+            const card = createEquationCard({
+                equation,
+                topicName: topic ? topic.name : "Sem tópico",
+                onToggle: () => {
+                    equation.selected = !equation.selected;
+                    onManualConfigChange?.();
+                    if (onEquationToggle) {
+                        onEquationToggle(equation.id);
+                    } else {
+                        renderAll();
+                    }
+                    saveState();
+                },
+                onEdit:              (id) => startEditingEquation(id),
+                onDelete:            (id) => removeEquation(id),
+                onOpenRestrictions:  (id) => focusEquationRestrictions(id),
             });
-
-            card.querySelector(".editEquationRestrictionsButton").addEventListener("click", (event) => {
-                event.stopPropagation();
-                startEditingEquation(equation.id);
-            });
-
-            card.querySelector(".deleteEquationButton").addEventListener("click", (event) => {
-                event.stopPropagation();
-                removeEquation(equation.id);
-            });
-
-            card.querySelector(".viewRestrictionsLink").addEventListener("click", (event) => {
-                event.stopPropagation();
-                focusEquationRestrictions(equation.id);
-            });
-
             elements.equationsList.appendChild(card);
         });
 
@@ -158,7 +136,7 @@ export function createTelaEquacoes({ elements, state, renderAll, saveState, show
             return;
         }
 
-        const formulaResposta = RESPONSE_FORMULA_BY_EQUATION[equationName] || elements.inputNovaEquacaoFormula?.value || "";
+        const formulaResposta = elements.inputNovaEquacaoFormula?.value || "";
 
         if (!formulaResposta.trim()) {
             showToast("Preencha a fórmula da resposta. Ex.: (A*D+B*C)/(B*D)");
@@ -302,6 +280,13 @@ export function createTelaEquacoes({ elements, state, renderAll, saveState, show
         startEditingEquation,
         focusEquationRestrictions,
         updateEquationPreview,
-        wireFormActions
+        wireFormActions,
+        patchCardSelection(equationId, isSelected) {
+            const card = elements.equationsList?.querySelector(`[data-equation-id="${equationId}"]`);
+            if (!card) return;
+            card.classList.toggle("selected", isSelected);
+            const statusEl = card.querySelector(".equationStatus");
+            if (statusEl) statusEl.textContent = isSelected ? "Adicionada" : "Não adicionada";
+        }
     };
 }

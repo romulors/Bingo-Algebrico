@@ -1,0 +1,7 @@
+{
+    "nomeTopico": "Trigonometria",
+    "nomeEquacao": "Seno no Triângulo Retângulo",
+    "modeloEquacao": "\\sin(\\theta) = \\frac{A}{C}",
+    "resposta": "R",
+    "formulaResposta": "A/C"
+}

@@ -1,0 +1,7 @@
+{
+    "nomeTopico": "Análise Combinatória",
+    "nomeEquacao": "Fatorial de um Número",
+    "modeloEquacao": "A!",
+    "resposta": "R",
+    "formulaResposta": "factorial(A)"
+}

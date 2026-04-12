@@ -1,0 +1,7 @@
+{
+    "nomeTopico": "Geometria Plana",
+    "nomeEquacao": "Perímetro do Retângulo",
+    "modeloEquacao": "2 \\cdot (A + B)",
+    "resposta": "R",
+    "formulaResposta": "2*(A+B)"
+}

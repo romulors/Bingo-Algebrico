@@ -1,6 +1,10 @@
 import { FLOW_STEPS, DEFAULT_VISUAL_THEME } from "../../app/constants.js";
+import { createStatusGrid } from "../ui/status-grid/status-grid.js";
+import { createFlowStepper } from "../ui/flow-stepper/flow-stepper.js";
 
 export function createTelaInicio({ elements, state, navigateTo, getSelectedEquations, validateBingoParams }) {
+	let flowActiveIndex = null;
+
 	function countConfiguredRestrictions() {
 		return getSelectedEquations().reduce((total, equation) => {
 			const configured = Object.keys(state.restrictions).filter((key) => key.startsWith(`${equation.id}::`)).length;
@@ -80,28 +84,10 @@ export function createTelaInicio({ elements, state, navigateTo, getSelectedEquat
 		const generatedQuestions = state.generatedQuestions.length;
 		const generatedCards = state.generatedCards.length;
 
-		elements.inicioStatus.innerHTML = `
-			<div class="status-card">
-				<span class="label">Tópicos selecionados</span>
-				<span class="value">${selectedTopics}</span>
-			</div>
-			<div class="status-card">
-				<span class="label">Equações selecionadas</span>
-				<span class="value">${selectedEquations}</span>
-			</div>
-			<div class="status-card">
-				<span class="label">Variáveis com restrição</span>
-				<span class="value">${restrictedVars}</span>
-			</div>
-			<div class="status-card">
-				<span class="label">Questões geradas</span>
-				<span class="value">${generatedQuestions}</span>
-			</div>
-			<div class="status-card">
-				<span class="label">Cartelas geradas</span>
-				<span class="value">${generatedCards}</span>
-			</div>
-		`;
+		elements.inicioStatus.innerHTML = "";
+		elements.inicioStatus.appendChild(
+			createStatusGrid({ selectedTopics, selectedEquations, restrictedVars, generatedQuestions, generatedCards })
+		);
 	}
 
 	function renderFlow() {
@@ -112,70 +98,20 @@ export function createTelaInicio({ elements, state, navigateTo, getSelectedEquat
 		const statuses = FLOW_STEPS.map((step) => getFlowStepState(step.screen));
 		const firstNonDoneIndex = statuses.findIndex((s) => s.tone !== "done");
 		const defaultActive = firstNonDoneIndex === -1 ? 0 : firstNonDoneIndex;
+		const initialActive = flowActiveIndex !== null
+			? Math.min(flowActiveIndex, FLOW_STEPS.length - 1)
+			: defaultActive;
 
-		let activeIndex = parseInt(elements.inicioFlow.dataset.activeIndex ?? defaultActive, 10);
-		// Reset active if it's out of range (e.g. after a full re-render)
-		if (activeIndex >= FLOW_STEPS.length) activeIndex = defaultActive;
+		const stepper = createFlowStepper({
+			steps: FLOW_STEPS,
+			statuses,
+			defaultActiveIndex: initialActive,
+			onStepOpen: (screen) => navigateTo(screen),
+			onActiveIndexChange: (idx) => { flowActiveIndex = idx; },
+		});
 
-		function buildTrack() {
-			return FLOW_STEPS.map((step, index) => {
-				const status = statuses[index];
-				const isActive = index === activeIndex;
-				const isDone = status.tone === "done";
-				const connectorDone = index < FLOW_STEPS.length - 1 && isDone && statuses[index + 1].tone === "done";
-
-				const connector = index < FLOW_STEPS.length - 1
-					? `<div class="stepper-connector ${connectorDone ? "stepper-connector-done" : ""}"></div>`
-					: "";
-
-				return `
-					<div class="stepper-node ${isActive ? "active" : ""} stepper-tone-${status.tone}" data-index="${index}">
-						<div class="stepper-bubble">${String(index + 1).padStart(2, "0")}</div>
-						<span class="stepper-label">${step.title}</span>
-						<span class="stepper-status">${status.label}</span>
-					</div>
-					${connector}
-				`;
-			}).join("");
-		}
-
-		function buildDetail() {
-			const step = FLOW_STEPS[activeIndex];
-			const status = statuses[activeIndex];
-			return `
-				<div class="stepper-detail stepper-tone-${status.tone}">
-					<p>${step.description}</p>
-					<button class="botao botao-secundario stepper-open-btn" type="button" data-screen="${step.screen}">
-						Abrir etapa
-					</button>
-				</div>
-			`;
-		}
-
-		function render() {
-			elements.inicioFlow.innerHTML = `
-				<div class="stepper-track">${buildTrack()}</div>
-				${buildDetail()}
-			`;
-			elements.inicioFlow.dataset.activeIndex = activeIndex;
-
-			elements.inicioFlow.querySelectorAll(".stepper-node").forEach((node) => {
-				node.addEventListener("click", () => {
-					activeIndex = parseInt(node.dataset.index, 10);
-					render();
-				});
-			});
-
-			const openBtn = elements.inicioFlow.querySelector(".stepper-open-btn");
-			if (openBtn) {
-				openBtn.addEventListener("click", () => {
-					const target = openBtn.dataset.screen;
-					if (target) navigateTo(target);
-				});
-			}
-		}
-
-		render();
+		elements.inicioFlow.innerHTML = "";
+		elements.inicioFlow.appendChild(stepper);
 	}
 
 	return {

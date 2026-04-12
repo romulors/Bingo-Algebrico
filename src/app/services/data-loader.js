@@ -1,4 +1,4 @@
-import { DEFAULT_DATA_FILES, RESPONSE_FORMULA_BY_EQUATION } from "../constants.js";
+import { DEFAULT_DATA_FILES } from "../constants.js";
 
 export async function loadDefaultEquations() {
     const requests = DEFAULT_DATA_FILES.map(async (filePath) => {
@@ -23,6 +23,7 @@ export async function loadDefaultEquations() {
 }
 
 export function normalizeEquationData(data, sourceFile) {
+    if (Array.isArray(data)) data = data[0];
     const topicName = ((data.nomeTopico || "").trim() || "Tópico");
     const equationName = (data.nomeEquacao || "Equação").trim();
     // `modeloEquacao` aceita tanto notação plain-text ("A/B + C/D") quanto LaTeX puro
@@ -33,8 +34,8 @@ export function normalizeEquationData(data, sourceFile) {
     // `resposta` segue o mesmo contrato de `modeloEquacao`: aceita plain-text ou LaTeX.
     // É usado apenas para exibição no card de preview da equação (não em cálculos).
     const responseModel = (data.resposta || "R").trim();
-    const formulaResposta = RESPONSE_FORMULA_BY_EQUATION[equationName] || (() => {
-        console.warn(`[data-loader] Fórmula não encontrada para equação "${equationName}". Usando "A+B" como fallback.`);
+    const formulaResposta = (data.formulaResposta || "").trim() || (() => {
+        console.warn(`[data-loader] Campo "formulaResposta" ausente em "${equationName}". Usando "A+B" como fallback.`);
         return "A+B";
     })();
     const variables = extractVariables(`${model} ${responseModel}`);

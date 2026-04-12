@@ -1,3 +1,6 @@
+import { createRestrictionTable } from "../ui/restriction-table/restriction-table.js";
+import { RestrictionConfig } from "../../app/models/RestrictionConfig.js";
+
 export function createTelaRestricoes({ elements, state, saveState, onRestricaoChanged }) {
     function render() {
         if (!elements.restricoesContainer) return;
@@ -14,7 +17,7 @@ export function createTelaRestricoes({ elements, state, saveState, onRestricaoCh
             equation.variables.forEach((variableName) => {
                 const key = `${equation.id}::${variableName}`;
                 if (!state.restrictions[key]) {
-                    state.restrictions[key] = { min: 1, max: 10, tipo: "inteiro" };
+                    state.restrictions[key] = new RestrictionConfig().getValue();
                     newEntriesAdded = true;
                 }
             });
@@ -24,80 +27,31 @@ export function createTelaRestricoes({ elements, state, saveState, onRestricaoCh
             onRestricaoChanged?.();
         }
 
-        const cards = selectedEquations.map((equation) => {
-            const cardClass = state.focusedRestrictionEquationId === equation.id ? "restricao-card restriction-row-highlight" : "restricao-card";
+        const grid = document.createElement("div");
+        grid.className = "restricoes-grid";
 
-            const rows = equation.variables.map((variableName) => {
-                const key = `${equation.id}::${variableName}`;
-                const config = state.restrictions[key];
-
-                return `
-                    <tr data-equation-id="${equation.id}">
-                        <td><strong>${variableName}</strong></td>
-                        <td>
-                            <input type="number" data-key="${key}" data-field="min" value="${config.min}" min="-9999" max="9999">
-                        </td>
-                        <td>
-                            <input type="number" data-key="${key}" data-field="max" value="${config.max}" min="-9999" max="9999">
-                        </td>
-                        <td>
-                            <select data-key="${key}" data-field="tipo">
-                                <option value="inteiro" ${config.tipo === "inteiro" ? "selected" : ""}>Inteiro</option>
-                                <option value="racional" ${config.tipo === "racional" ? "selected" : ""}>Racional</option>
-                            </select>
-                        </td>
-                    </tr>
-                `;
-            }).join("");
-
-            return `
-                <div class="${cardClass}">
-                    <h4 class="restricao-card-title">${equation.name}</h4>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Variável</th>
-                                <th>Mín</th>
-                                <th>Máx</th>
-                                <th>Tipo</th>
-                            </tr>
-                        </thead>
-                        <tbody>${rows}</tbody>
-                    </table>
-                </div>
-            `;
+        selectedEquations.forEach((equation) => {
+            const table = createRestrictionTable({
+                equation,
+                restrictions: state.restrictions,
+                highlighted: state.focusedRestrictionEquationId === equation.id,
+                onChanged: (key, field, rawValue) => {
+                    const current = state.restrictions[key] || { min: 1, max: 10, tipo: "inteiro" };
+                    if (field === "min" || field === "max") {
+                        current[field] = Number(rawValue);
+                    } else {
+                        current[field] = rawValue;
+                    }
+                    state.restrictions[key] = current;
+                    saveState();
+                    onRestricaoChanged?.();
+                },
+            });
+            grid.appendChild(table);
         });
 
-        elements.restricoesContainer.innerHTML = `<div class="restricoes-grid">${cards.join("")}</div>`;
-
-        elements.restricoesContainer
-            .querySelectorAll("input, select")
-            .forEach((inputElement) => {
-                inputElement.addEventListener("change", _onRestricaoChange);
-            });
-    }
-
-    function _onRestricaoChange(event) {
-        const inputElement = event.target;
-        const key = inputElement.dataset.key;
-        const field = inputElement.dataset.field;
-
-        if (!key || !field) return;
-
-        const current = state.restrictions[key] || { min: 1, max: 10, tipo: "inteiro" };
-
-        if (field === "min" || field === "max") {
-            current[field] = Number(inputElement.value);
-        } else {
-            current[field] = inputElement.value;
-        }
-
-        state.restrictions[key] = current;
-        saveState();
-
-        if (typeof onRestricaoChanged === "function") {
-            onRestricaoChanged();
-        }
+        elements.restricoesContainer.innerHTML = "";
+        elements.restricoesContainer.appendChild(grid);
     }
 
     function wireActions(showToast) {

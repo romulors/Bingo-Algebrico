@@ -1,0 +1,7 @@
+{
+    "nomeTopico": "Geometria Espacial",
+    "nomeEquacao": "Volume da Esfera",
+    "modeloEquacao": "\\frac{4}{3} \\cdot \\pi \\cdot A^3",
+    "resposta": "R",
+    "formulaResposta": "(4/3)*pi*A^3"
+}

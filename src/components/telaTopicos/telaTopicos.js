@@ -1,4 +1,6 @@
-export function createTelaTopicos({ elements, state, renderAll, saveState, showToast, onManualConfigChange }) {
+import { createTopicCard } from "../ui/topic-card/topic-card.js";
+
+export function createTelaTopicos({ elements, state, renderAll, saveState, showToast, onManualConfigChange, onTopicToggle }) {
 	function render() {
 		if (!elements.topicsList) {
 			return;
@@ -6,50 +8,31 @@ export function createTelaTopicos({ elements, state, renderAll, saveState, showT
 
 		elements.topicsList.innerHTML = "";
 
-		state.topics.forEach((topic) => {
-			const totalEquations = state.equations.filter((equation) => equation.topicId === topic.id).length;
-			const card = document.createElement("article");
-			card.className = `topicCard ${topic.selected ? "selected" : ""}`;
+		const sortedTopics = [...state.topics].sort((a, b) => a.name.localeCompare(b.name, "pt"));
 
-			card.innerHTML = `
-				<span class="topicName">${topic.name}</span>
-				<span class="topicNumberOfQuestions">${totalEquations} Equações</span>
-				<div class="topicFooter">
-					<span class="icon-btn success editTopicButton" title="Editar tópico"><i class="fas fa-wrench"></i></span>
-					<span class="topicStatus">${topic.selected ? "Adicionado" : "Não adicionado"}</span>
-					<span class="icon-btn danger deleteTopicButton" title="Remover tópico"><i class="fas fa-xmark"></i></span>
-				</div>
-			`;
-
-			card.addEventListener("click", () => {
-				topic.selected = !topic.selected;
-				onManualConfigChange?.();
-
-				if (!topic.selected) {
-					state.equations
-						.filter((equation) => equation.topicId === topic.id)
-						.forEach((equation) => {
-							equation.selected = false;
-						});
-				}
-
-				renderAll();
-				saveState();
+		sortedTopics.forEach((topic) => {
+			const equationCount = state.equations.filter((equation) => equation.topicId === topic.id).length;
+			const card = createTopicCard({
+				topic,
+				equationCount,
+				onToggle: () => {
+					topic.selected = !topic.selected;
+					onManualConfigChange?.();
+					if (!topic.selected) {
+						state.equations
+							.filter((equation) => equation.topicId === topic.id)
+							.forEach((equation) => { equation.selected = false; });
+					}
+					if (onTopicToggle) {
+						onTopicToggle(topic.id);
+					} else {
+						renderAll();
+					}
+					saveState();
+				},
+				onEdit:   (id) => editTopic(id),
+				onRemove: (id) => removeTopic(id),
 			});
-
-			const editButton = card.querySelector(".editTopicButton");
-			const deleteButton = card.querySelector(".deleteTopicButton");
-
-			editButton.addEventListener("click", (event) => {
-				event.stopPropagation();
-				editTopic(topic.id);
-			});
-
-			deleteButton.addEventListener("click", (event) => {
-				event.stopPropagation();
-				removeTopic(topic.id);
-			});
-
 			elements.topicsList.appendChild(card);
 		});
 	}
@@ -134,6 +117,13 @@ export function createTelaTopicos({ elements, state, renderAll, saveState, showT
 		render,
 		addTopic,
 		editTopic,
-		removeTopic
+		removeTopic,
+		patchCardSelection(topicId, isSelected) {
+			const card = elements.topicsList?.querySelector(`[data-topic-id="${topicId}"]`);
+			if (!card) return;
+			card.classList.toggle("selected", isSelected);
+			const statusEl = card.querySelector(".topicStatus");
+			if (statusEl) statusEl.textContent = isSelected ? "Adicionado" : "Não adicionado";
+		}
 	};
 }

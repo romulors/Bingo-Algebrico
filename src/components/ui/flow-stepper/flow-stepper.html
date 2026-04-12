@@ -1,0 +1,24 @@
+<!-- FlowStepper — template reference (not loaded at runtime) -->
+<!-- Used by: src/components/telaInicio/telaInicio.js via createFlowStepper() -->
+<div>
+    <div class="stepper-track">
+        <div class="stepper-node active stepper-tone-done" data-index="0">
+            <div class="stepper-bubble">01</div>
+            <span class="stepper-label">Tópicos</span>
+            <span class="stepper-status">Concluida</span>
+        </div>
+        <div class="stepper-connector stepper-connector-done"></div>
+        <div class="stepper-node stepper-tone-pending" data-index="1">
+            <div class="stepper-bubble">02</div>
+            <span class="stepper-label">Equações</span>
+            <span class="stepper-status">Pendente</span>
+        </div>
+        <!-- ... more nodes ... -->
+    </div>
+    <div class="stepper-detail stepper-tone-done">
+        <p>Descrição da etapa ativa.</p>
+        <button class="botao botao-secundario stepper-open-btn" type="button" data-screen="screen-name">
+            Abrir etapa
+        </button>
+    </div>
+</div>

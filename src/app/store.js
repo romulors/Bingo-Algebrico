@@ -125,6 +125,28 @@ export function mergeState(state, defaultTopics, defaultEquations) {
     state.activePresetId = typeof saved.activePresetId === "string" ? saved.activePresetId : "customizado";
 }
 
+// ─── Seletores canônicos de seleção ──────────────────────────────────────────────
+
+/**
+ * Retorna os tópicos marcados como selecionados.
+ * @param {object} state
+ * @returns {object[]}
+ */
+export function getSelectedTopics(state) {
+    return state.topics.filter((t) => t.selected);
+}
+
+/**
+ * Retorna as equações cujo tópico pai também está selecionado.
+ * Essa é a definição canônica de "equação disponível para o bingo".
+ * @param {object} state
+ * @returns {object[]}
+ */
+export function getSelectedEquations(state) {
+    const selectedTopicIds = new Set(state.topics.filter((t) => t.selected).map((t) => t.id));
+    return state.equations.filter((eq) => eq.selected && selectedTopicIds.has(eq.topicId));
+}
+
 function isDuplicateById(id, list, currentItem) {
     const first = list.find((item) => item.id === id);
     return first !== currentItem;

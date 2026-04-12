@@ -1,0 +1,7 @@
+{
+    "nomeTopico": "Juros Compostos",
+    "nomeEquacao": "Montante com Juros Compostos",
+    "modeloEquacao": "A \\cdot \\left(1 + \\frac{B}{100}\\right)^C",
+    "resposta": "R",
+    "formulaResposta": "A*(1+B/100)^C"
+}
