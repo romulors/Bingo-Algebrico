@@ -1,5 +1,5 @@
 import { renderMath } from "../../app/utils/ui.js";
-import { MathUtils } from "../../app/services/math-utils.js";
+import { createQuestaoCard } from "../ui/questao-card/questao-card.js";
 
 export function createTelaQuestoes({ elements, state, generateQuestions }) {
     let lastRenderedQuestions = null;
@@ -28,18 +28,14 @@ export function createTelaQuestoes({ elements, state, generateQuestions }) {
 
         elements.questoesResumo.textContent = `Total gerado: ${questions.length} questões. ${Object.keys(distribution).length} tipo(s).`;
 
-        const cards = questions.map((question, index) => `
-            <article class="questao-card">
-                <div class="questao-card-header">
-                    <span class="numero">#${String(index + 1).padStart(3, "0")}</span>
-                    <span class="question-meta">${question.topicName} • ${question.equationName}</span>
-                </div>
-                <div class="question-equation">\\[${question.enunciado} = ${MathUtils.fractionToLatex(question.resposta)}\\]</div>
-            </article>
-        `);
+        const grid = document.createElement("div");
+        grid.className = "questoes-grid";
+        questions.forEach((question, index) => {
+            grid.appendChild(createQuestaoCard({ question, index }));
+        });
 
-        elements.questoesContainer.innerHTML = `<div class="questoes-grid">${cards.join("")}</div>`;
-
+        elements.questoesContainer.innerHTML = "";
+        elements.questoesContainer.appendChild(grid);
         renderMath(elements.questoesContainer);
     }
 

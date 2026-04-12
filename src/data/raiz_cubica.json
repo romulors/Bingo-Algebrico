@@ -1,0 +1,7 @@
+{
+    "nomeTopico": "Radiciação",
+    "nomeEquacao": "Raiz Cúbica",
+    "modeloEquacao": "\\sqrt[3]{A}",
+    "resposta": "R",
+    "formulaResposta": "cbrt(A)"
+}

@@ -1,0 +1,7 @@
+{
+    "nomeTopico": "Geometria Espacial",
+    "nomeEquacao": "Volume da Pirâmide",
+    "modeloEquacao": "\\frac{A \\cdot B \\cdot C}{3}",
+    "resposta": "R",
+    "formulaResposta": "(A*B*C)/3"
+}

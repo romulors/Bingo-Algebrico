@@ -1,0 +1,7 @@
+{
+    "nomeTopico": "Geometria Espacial",
+    "nomeEquacao": "Volume do Cone",
+    "modeloEquacao": "\\frac{\\pi \\cdot A^2 \\cdot B}{3}",
+    "resposta": "R",
+    "formulaResposta": "pi*A^2*B/3"
+}

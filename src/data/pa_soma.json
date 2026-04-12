@@ -1,0 +1,7 @@
+{
+    "nomeTopico": "Progressão Aritmética",
+    "nomeEquacao": "Soma dos Termos da PA",
+    "modeloEquacao": "\\frac{B}{2} \\cdot (2 \\cdot A + (B - 1) \\cdot C)",
+    "resposta": "R",
+    "formulaResposta": "B*(2*A+(B-1)*C)/2"
+}

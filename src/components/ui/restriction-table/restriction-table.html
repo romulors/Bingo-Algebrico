@@ -1,0 +1,28 @@
+<!-- RestrictionTable — template reference (not loaded at runtime) -->
+<!-- Used by: src/components/telaRestricoes/telaRestricoes.js via createRestrictionTable() -->
+<div class="restricao-card [restriction-row-highlight]" data-equation-id="eq_id">
+    <h4 class="restricao-card-title">Nome da Equação</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>Variável</th>
+                <th>Mín</th>
+                <th>Máx</th>
+                <th>Tipo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-equation-id="eq_id">
+                <td><strong>A</strong></td>
+                <td><input type="number" data-key="eq_id::A" data-field="min" value="1" min="-9999" max="9999"></td>
+                <td><input type="number" data-key="eq_id::A" data-field="max" value="10" min="-9999" max="9999"></td>
+                <td>
+                    <select data-key="eq_id::A" data-field="tipo">
+                        <option value="inteiro" selected>Inteiro</option>
+                        <option value="racional">Racional</option>
+                    </select>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -25,12 +25,7 @@ export function createElementsRegistry() {
         botaoSalvarEquacoes: null,
         restricoesContainer: null,
         botaoSalvarRestricoes: null,
-        paramNumQuestoesUnicas: null,
-        paramNumCartelas: null,
-        paramNumQuestoesPorCartela: null,
-        paramMinRepeticoes: null,
-        paramMaxRepeticoes: null,
-        bingoValidationMessage: null,
+        bingoParamsMount: null,
         botaoSalvarParametrosBingo: null,
         botaoGerarQuestoes: null,
         questoesResumo: null,
@@ -62,6 +57,9 @@ export function createElementsRegistry() {
         inputImportarDados: null,
         inputNomeExportacao: null,
         persistenciaFeedback: null,
+        listaDefinicoes: null,
+        botaoExportarDefinicoes: null,
+        botaoSelecionarTodasDefinicoes: null,
         botaoLimparLog: null,
         logContainer: null,
         appMessage: null,
@@ -96,12 +94,7 @@ export function bindDOMElements(elements) {
     elements.botaoSalvarEquacoes = document.getElementById("botaoSalvarEquacoes");
     elements.restricoesContainer = document.getElementById("restricoesContainer");
     elements.botaoSalvarRestricoes = document.getElementById("botaoSalvarRestricoes");
-    elements.paramNumQuestoesUnicas = document.getElementById("paramNumQuestoesUnicas");
-    elements.paramNumCartelas = document.getElementById("paramNumCartelas");
-    elements.paramNumQuestoesPorCartela = document.getElementById("paramNumQuestoesPorCartela");
-    elements.paramMinRepeticoes = document.getElementById("paramMinRepeticoes");
-    elements.paramMaxRepeticoes = document.getElementById("paramMaxRepeticoes");
-    elements.bingoValidationMessage = document.getElementById("bingoValidationMessage");
+    elements.bingoParamsMount = document.getElementById("bingoParamsMount");
     elements.botaoSalvarParametrosBingo = document.getElementById("botaoSalvarParametrosBingo");
     elements.botaoGerarQuestoes = document.getElementById("botaoGerarQuestoes");
     elements.questoesResumo = document.getElementById("questoesResumo");
@@ -133,6 +126,9 @@ export function bindDOMElements(elements) {
     elements.inputImportarDados = document.getElementById("inputImportarDados");
     elements.inputNomeExportacao = document.getElementById("inputNomeExportacao");
     elements.persistenciaFeedback = document.getElementById("persistenciaFeedback");
+    elements.listaDefinicoes = document.getElementById("listaDefinicoes");
+    elements.botaoExportarDefinicoes = document.getElementById("botaoExportarDefinicoes");
+    elements.botaoSelecionarTodasDefinicoes = document.getElementById("botaoSelecionarTodasDefinicoes");
     elements.botaoLimparLog = document.getElementById("botaoLimparLog");
     elements.logContainer = document.getElementById("logContainer");
     elements.appMessage = document.getElementById("appMessage");

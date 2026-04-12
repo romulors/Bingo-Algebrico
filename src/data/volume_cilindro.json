@@ -1,0 +1,7 @@
+{
+    "nomeTopico": "Geometria Espacial",
+    "nomeEquacao": "Volume do Cilindro",
+    "modeloEquacao": "\\pi \\cdot A^2 \\cdot B",
+    "resposta": "R",
+    "formulaResposta": "pi*A^2*B"
+}

@@ -2,5 +2,6 @@
     "nomeTopico": "Frações",
     "nomeEquacao": "Subtração de Frações",
     "modeloEquacao": "\\frac{A}{B} - \\frac{C}{D}",
-    "resposta": "\\frac{E}{F}"
+    "resposta": "\\frac{E}{F}",
+    "formulaResposta": "(A*D - B*C)/(B*D)"
 }

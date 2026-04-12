@@ -1,0 +1,7 @@
+{
+    "nomeTopico": "Análise Combinatória",
+    "nomeEquacao": "Arranjo Simples",
+    "modeloEquacao": "\\frac{A!}{(A - B)!}",
+    "resposta": "R",
+    "formulaResposta": "factorial(A)/factorial(A-B)"
+}

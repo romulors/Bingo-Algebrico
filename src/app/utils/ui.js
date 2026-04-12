@@ -60,6 +60,17 @@ export function renderMath(target) {
  * @param {string} url        - Caminho do arquivo .html (relativo ao index.html).
  * @param {string|Element} target - Seletor CSS ou referência ao elemento de destino.
  */
+/**
+ * Retorna true se um toggle button (data-checked) está ativado.
+ * Centraliza o padrão `el?.dataset.checked === "true"` usado em telaCartelas.
+ *
+ * @param {HTMLElement|null|undefined} el
+ * @returns {boolean}
+ */
+export function isToggleOn(el) {
+    return el?.dataset.checked === "true";
+}
+
 export async function loadHTML(url, target) {
     const container = typeof target === "string" ? document.querySelector(target) : target;
 

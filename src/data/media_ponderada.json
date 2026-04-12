@@ -1,0 +1,7 @@
+{
+    "nomeTopico": "Estatística",
+    "nomeEquacao": "Média Ponderada de Dois Valores",
+    "modeloEquacao": "\\frac{A \\cdot P + B \\cdot Q}{P + Q}",
+    "resposta": "R",
+    "formulaResposta": "(A*P+B*Q)/(P+Q)"
+}

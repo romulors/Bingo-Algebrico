@@ -1,0 +1,7 @@
+{
+    "nomeTopico": "Porcentagem",
+    "nomeEquacao": "Porcentagem de um Valor",
+    "modeloEquacao": "A\\% \\text{ de } B",
+    "resposta": "R",
+    "formulaResposta": "(A/100)*B"
+}

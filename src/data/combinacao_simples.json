@@ -1,0 +1,7 @@
+{
+    "nomeTopico": "Análise Combinatória",
+    "nomeEquacao": "Combinação Simples",
+    "modeloEquacao": "\\frac{A!}{B! \\cdot (A - B)!}",
+    "resposta": "R",
+    "formulaResposta": "factorial(A)/(factorial(B)*factorial(A-B))"
+}

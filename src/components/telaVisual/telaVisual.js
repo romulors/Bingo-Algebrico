@@ -1,4 +1,6 @@
 import { DEFAULT_VISUAL_THEME, EXPORT_VERSIONS, EXPORT_TYPES } from "../../app/constants.js";
+import { VisualTheme } from "../../app/models/VisualTheme.js";
+import { BingoParams } from "../../app/models/BingoParams.js";
 
 export function createTelaVisual({ elements, state, saveState, showToast, navigateTo, renderAll, applyThemeVars }) {
     // ─── Tema visual ─────────────────────────────────────────────────────────────
@@ -13,13 +15,13 @@ export function createTelaVisual({ elements, state, saveState, showToast, naviga
     }
 
     function syncThemeFromInputs() {
-        state.visualTheme = {
+        state.visualTheme = new VisualTheme({
             nomeBingo: (elements.temaNomeBingo?.value || "BINGO ALGÉBRICO").trim() || "BINGO ALGÉBRICO",
             nomeInstituicao: (elements.temaNomeInstituicao?.value || "").trim(),
             corPrimaria: elements.temaCorPrimaria?.value || "#03233e",
             corDestaque: elements.temaCorDestaque?.value || "#64b0f2",
             corFundo: elements.temaCorFundo?.value || "#f3f4fa"
-        };
+        });
     }
 
     // ─── Render ──────────────────────────────────────────────────────────────────
@@ -62,18 +64,18 @@ export function createTelaVisual({ elements, state, saveState, showToast, naviga
 
         // Restore only non-structural fields; topics/equations are managed by mergeState on load
         state.restrictions = data.restrictions && typeof data.restrictions === "object" ? data.restrictions : {};
-        state.bingoParams = {
+        state.bingoParams = new BingoParams({
             ...state.bingoParams,
             numQuestoesUnicas: Number(data.bingoParams?.numQuestoesUnicas ?? state.bingoParams.numQuestoesUnicas),
             numCartelas: Number(data.bingoParams?.numCartelas ?? state.bingoParams.numCartelas),
             numQuestoesPorCartela: Number(data.bingoParams?.numQuestoesPorCartela ?? state.bingoParams.numQuestoesPorCartela),
             minRepeticoes: Number(data.bingoParams?.minRepeticoes ?? state.bingoParams.minRepeticoes),
             maxRepeticoes: Number(data.bingoParams?.maxRepeticoes ?? state.bingoParams.maxRepeticoes)
-        };
+        });
         state.generatedQuestions = Array.isArray(data.generatedQuestions) ? data.generatedQuestions : [];
         state.generatedCards = Array.isArray(data.generatedCards) ? data.generatedCards : [];
         state.cardDisplayMode = data.cardDisplayMode === "aluno" ? "aluno" : "professor";
-        state.visualTheme = { ...state.visualTheme, ...(data.visualTheme || {}) };
+        state.visualTheme = new VisualTheme({ ...state.visualTheme, ...(data.visualTheme || {}) });
         state.customTopicCounter = Number(data.customTopicCounter || 0);
         state.customEquationCounter = Number(data.customEquationCounter || 0);
         state.questionCounter = Number(data.questionCounter || 0);
@@ -153,7 +155,7 @@ export function createTelaVisual({ elements, state, saveState, showToast, naviga
         });
 
         elements.botaoRestaurarTema?.addEventListener("click", () => {
-            state.visualTheme = { ...DEFAULT_VISUAL_THEME };
+            state.visualTheme = new VisualTheme({ ...DEFAULT_VISUAL_THEME });
             applyThemeToUI();
             saveState();
             renderAll();

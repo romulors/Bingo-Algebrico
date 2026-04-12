@@ -1,7 +1,9 @@
-import { DEFAULT_DATA_FILES } from "./src/app/constants.js";
+import { DEFAULT_DATA_FILES, DEFAULT_VISUAL_THEME } from "./src/app/constants.js";
+import { getSelectedEquations as _storeGetSelectedEquations } from "./src/app/store.js";
 import { bindDOMElements as bindElements, createElementsRegistry } from "./src/app/dom-elements.js";
 import { loadDefaultEquations } from "./src/app/services/data-loader.js";
-import { createInitialState, mergeState as hydrateState, saveState as persistState, loadSavedState } from "./src/app/store.js";
+import { AppState } from "./src/app/AppState.js";
+import { VisualTheme } from "./src/app/models/VisualTheme.js";
 import { clearPersistentMessage as clearAppMessage, loadHTML, showPersistentMessage as showAppMessage, showToast as _showToast } from "./src/app/utils/ui.js";
 import { AppLogger } from "./src/app/logger.js";
 import { createNavMenu, parseHash } from "./src/components/nav-menu/nav-menu.js";
@@ -16,6 +18,7 @@ import { createTelaVisual } from "./src/components/telaVisual/telaVisual.js";
 import { createTelaPersistencia } from "./src/components/telaPersistencia/telaPersistencia.js";
 import { createTelaLog } from "./src/components/telaLog/telaLog.js";
 import { createTelaPresets } from "./src/components/telaPresets/telaPresets.js";
+import { createTelaSobre } from "./src/components/telaSobre/telaSobre.js";
 
 function showToast(message) {
     _showToast(message);
@@ -23,18 +26,11 @@ function showToast(message) {
 }
 
 function applyThemeVars(theme) {
-    const root = document.documentElement;
-    root.style.setProperty("--colorDarkBlue", theme.corPrimaria);
-    root.style.setProperty("--colorLightBlue", theme.corDestaque);
-    root.style.setProperty("--colorQuasiWhite", theme.corFundo);
-    root.style.setProperty("--bannerTopColor", theme.corPrimaria);
-    root.style.setProperty("--bannerBottomColor", theme.corPrimaria);
-    root.style.setProperty("--print-cor-primaria", theme.corPrimaria);
-    root.style.setProperty("--print-cor-destaque", theme.corDestaque);
+    new VisualTheme(theme).applyCSSVars();
 }
 
 // ─── Estado e registry de elementos ─────────────────────────────────────────────
-const state = createInitialState();
+const state = new AppState();
 const elements = createElementsRegistry();
 
 // ─── Instâncias dos componentes (lazy) ──────────────────────────────────────────
@@ -50,14 +46,19 @@ let telaVisual = null;
 let telaPersistencia = null;
 let telaLog = null;
 let telaPresets = null;
+let telaSobre = null;
 
 // ─── Wrappers de dependências globais ───────────────────────────────────────────
-function saveState() { persistState(state); }
-function mergeState(defaultTopics, defaultEquations) { hydrateState(state, defaultTopics, defaultEquations); }
+function saveState() { state.save(); }
 function showPersistentMessage(text, actionLabel, actionCallback) { showAppMessage(elements, text, actionLabel, actionCallback); }
 function clearPersistentMessage() { clearAppMessage(elements); }
 function navigateTo(screenName) { navMenu?.navigateTo(screenName); }
-function getSelectedEquations() { return state.equations.filter((eq) => eq.selected); }
+function getSelectedEquations() { return _storeGetSelectedEquations(state); }
+
+// ─── Agendador de idle (graceful degradation para Safari) ────────────────────────
+const scheduleIdle = typeof window !== "undefined" && window.requestIdleCallback
+    ? (fn) => window.requestIdleCallback(fn)
+    : (fn) => setTimeout(fn, 0);
 
 // ─── Getters lazy dos componentes ───────────────────────────────────────────────
 function getTelaInicio() {
@@ -79,7 +80,7 @@ function markCustomPreset() {
 
 function getTelaTopicos() {
     if (!telaTopicos) {
-        telaTopicos = createTelaTopicos({ elements, state, renderAll, saveState, showToast, onManualConfigChange: markCustomPreset });
+        telaTopicos = createTelaTopicos({ elements, state, renderAll, saveState, showToast, onManualConfigChange: markCustomPreset, onTopicToggle: renderAfterTopicToggle });
     }
     return telaTopicos;
 }
@@ -94,7 +95,8 @@ function getTelaEquacoes() {
             showToast,
             navigateTo,
             onFocusRestricoes: () => getTelaRestricoes().render(),
-            onManualConfigChange: markCustomPreset
+            onManualConfigChange: markCustomPreset,
+            onEquationToggle: renderAfterEquationToggle
         });
     }
     return telaEquacoes;
@@ -181,9 +183,16 @@ function getTelaLog() {
     return telaLog;
 }
 
+function getTelaSobre() {
+    if (!telaSobre) {
+        telaSobre = createTelaSobre();
+    }
+    return telaSobre;
+}
+
 function getTelaPresets() {
     if (!telaPresets) {
-        telaPresets = createTelaPresets({ elements, state, saveState, showToast, renderAll, navigateTo });
+        telaPresets = createTelaPresets({ elements, state, saveState, showToast, renderAll });
     }
     return telaPresets;
 }
@@ -239,21 +248,84 @@ function updateActionAvailability() {
 }
 
 // ─── Render global ───────────────────────────────────────────────────────────────
+// ─── Mapa de tela → função de render ─────────────────────────────────────────────
+function renderScreen(screenName) {
+    switch (screenName) {
+        case "inicio":      getTelaInicio().render(); break;
+        case "topicos":     getTelaTopicos().render(); break;
+        case "equacoes":    getTelaEquacoes().renderEquationTopicOptions(); getTelaEquacoes().render(); break;
+        case "restricoes":  getTelaRestricoes().render(); break;
+        case "bingo":       getTelaBingo().render(); break;
+        case "questoes":    getTelaQuestoes().render(); break;
+        case "cartelas":    getTelaCartelas().render(); break;
+        case "visual":      getTelaVisual().render(); break;
+        case "persistencia":getTelaPersistencia().render(); break;
+        case "log":         getTelaLog().render(); break;
+        case "presets":     getTelaPresets().render(); break;
+        case "sobre":       getTelaSobre().render(); break;
+        default: break;
+    }
+}
+
+// ─── Render atômico: toggle de tópico ────────────────────────────────────────────
+function renderAfterTopicToggle(topicId) {
+    // Tier A — síncrono: patch imediato no card clicado
+    const topic = state.topics.find((t) => t.id === topicId);
+    if (topic) getTelaTopicos().patchCardSelection(topicId, topic.selected);
+
+    // Tier B — próximo frame: telas dependentes de seleção de tópico
+    requestAnimationFrame(() => {
+        getTelaEquacoes().renderEquationTopicOptions();
+        getTelaEquacoes().render();
+        getTelaRestricoes().render();
+        getTelaBingo().render();
+        getTelaInicio().render();
+        updateActionAvailability();
+        updateNavStatuses();
+    });
+
+    // Tier C — ocioso: telas independentes da seleção
+    scheduleIdle(() => {
+        getTelaPersistencia().render();
+        getTelaPresets().render();
+    });
+}
+
+// ─── Render atômico: toggle de equação ───────────────────────────────────────────
+function renderAfterEquationToggle(equationId) {
+    // Tier A — síncrono: patch imediato no card clicado
+    const equation = state.equations.find((eq) => eq.id === equationId);
+    if (equation) getTelaEquacoes().patchCardSelection(equationId, equation.selected);
+
+    // Tier B — próximo frame: telas dependentes de seleção de equação
+    requestAnimationFrame(() => {
+        getTelaRestricoes().render();
+        getTelaBingo().render();
+        getTelaInicio().render();
+        updateActionAvailability();
+        updateNavStatuses();
+    });
+
+    // Tier C — ocioso: telas independentes da seleção
+    scheduleIdle(() => {
+        getTelaPersistencia().render();
+    });
+}
+
+// ─── Render global (mudanças estruturais: adicionar/remover/importar/preset) ──────
 function renderAll() {
-    getTelaInicio().render();
-    getTelaTopicos().render();
-    getTelaEquacoes().renderEquationTopicOptions();
-    getTelaEquacoes().render();
-    getTelaRestricoes().render();
-    getTelaBingo().render();
-    getTelaQuestoes().render();
-    getTelaCartelas().render();
-    getTelaVisual().render();
-    getTelaPersistencia().render();
-    getTelaLog().render();
-    getTelaPresets().render();
-    updateActionAvailability();
-    updateNavStatuses();
+    // Tela atual primeiro para feedback imediato
+    renderScreen(state.currentScreen);
+
+    scheduleIdle(() => {
+        const allScreens = ["inicio", "topicos", "equacoes", "restricoes", "bingo",
+            "questoes", "cartelas", "visual", "persistencia", "log", "presets", "sobre"];
+        allScreens
+            .filter((s) => s !== state.currentScreen)
+            .forEach((s) => renderScreen(s));
+        updateActionAvailability();
+        updateNavStatuses();
+    });
 }
 
 // ─── Setup de navegação ──────────────────────────────────────────────────────────
@@ -316,8 +388,8 @@ function wireActions() {
 async function initialize() {
     try {
         // 0. Aplicar tema salvo imediatamente, antes de qualquer render
-        const _earlyTheme = loadSavedState()?.visualTheme;
-        applyThemeVars({ ...createInitialState().visualTheme, ...(_earlyTheme || {}) });
+        const _earlyTheme = AppState.loadRaw()?.visualTheme;
+        applyThemeVars({ ...DEFAULT_VISUAL_THEME, ...(_earlyTheme || {}) });
 
         // 1. Carregar todos os fragmentos HTML em paralelo antes de qualquer bind
         await Promise.all([
@@ -332,7 +404,8 @@ async function initialize() {
             loadHTML("src/components/telaVisual/telaVisual.html",     "[data-screen=\"visual\"]"),
             loadHTML("src/components/telaPersistencia/telaPersistencia.html", "[data-screen=\"persistencia\"]"),
             loadHTML("src/components/telaLog/telaLog.html", "[data-screen=\"log\"]"),
-            loadHTML("src/components/telaPresets/telaPresets.html", "[data-screen=\"presets\"]")
+            loadHTML("src/components/telaPresets/telaPresets.html", "[data-screen=\"presets\"]"),
+            loadHTML("src/components/telaSobre/telaSobre.html", "[data-screen=\"sobre\"]")
         ]);
 
         // 2. Agora todos os elementos existem no DOM — fazer o bind
@@ -364,7 +437,7 @@ async function initialize() {
         });
 
         // 4. Hidratar estado, aplicar tema, montar navegação e eventos
-        mergeState(defaultTopics, defaultEquations);
+        state.merge(defaultTopics, defaultEquations);
         applyThemeVars(state.visualTheme);
         setupNavigation();
         wireActions();
