@@ -1,0 +1,46 @@
+<h2>Bingo</h2>
+<hr>
+<p class="section-description">Defina os parâmetros para geração automática das questões.</p>
+<div class="table-container" id="bingoParametrosContainer">
+    <table>
+        <thead>
+            <tr>
+                <th>Parâmetro</th>
+                <th>Valor</th>
+                <th>Descrição</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Número de questões únicas</td>
+                <td><input type="number" id="paramNumQuestoesUnicas" min="1" max="300" value="20"></td>
+                <td>Total de questões distintas geradas no banco do bingo.</td>
+            </tr>
+            <tr>
+                <td>Número de cartelas</td>
+                <td><input type="number" id="paramNumCartelas" min="1" max="200" value="20"></td>
+                <td>Total de cartelas que serão montadas posteriormente.</td>
+            </tr>
+            <tr>
+                <td>Questões por cartela</td>
+                <td><input type="number" id="paramNumQuestoesPorCartela" min="1" max="25" value="6"></td>
+                <td>Quantidade de questões exibidas em cada cartela.</td>
+            </tr>
+            <tr>
+                <td>Mínimo de repetições</td>
+                <td><input type="number" id="paramMinRepeticoes" min="1" max="50" value="2"></td>
+                <td>Quantidade mínima que cada questão pode aparecer nas cartelas.</td>
+            </tr>
+            <tr>
+                <td>Máximo de repetições</td>
+                <td><input type="number" id="paramMaxRepeticoes" min="1" max="50" value="5"></td>
+                <td>Quantidade máxima que cada questão pode aparecer nas cartelas.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div id="bingoValidationMessage" class="section-description"></div>
+<div class="actions-row">
+    <button class="botao" id="botaoSalvarParametrosBingo" type="button">Salvar parâmetros</button>
+    <button class="botao" id="botaoGerarQuestoes" type="button">Gerar questões</button>
+</div>

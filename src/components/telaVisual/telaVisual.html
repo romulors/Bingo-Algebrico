@@ -1,0 +1,45 @@
+<h2>Visual</h2>
+<hr>
+<p class="section-description">Personalize o tema visual do bingo antes de gerar as cartelas.</p>
+
+<div class="table-container visual-panel">
+    <table>
+        <thead>
+            <tr>
+                <th>Configuração visual</th>
+                <th>Valor</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Nome do Bingo</td>
+                <td><input type="text" id="temaNomeBingo" maxlength="60" value="BINGO ALGÉBRICO"></td>
+            </tr>
+            <tr>
+                <td>Nome da Instituição</td>
+                <td><input type="text" id="temaNomeInstituicao" maxlength="80" value=""></td>
+            </tr>
+            <tr>
+                <td>Cor primária</td>
+                <td><input type="color" id="temaCorPrimaria" value="#03233e"></td>
+            </tr>
+            <tr>
+                <td>Cor de destaque</td>
+                <td><input type="color" id="temaCorDestaque" value="#64b0f2"></td>
+            </tr>
+            <tr>
+                <td>Cor de fundo</td>
+                <td><input type="color" id="temaCorFundo" value="#f3f4fa"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div id="visualResumo" class="section-description"></div>
+
+<div class="actions-row">
+    <button class="botao" id="botaoAplicarTema" type="button">Aplicar tema</button>
+    <button class="botao" id="botaoExportarConfiguracao" type="button">Exportar configuração</button>
+    <button class="botao" id="botaoImportarConfiguracao" type="button">Importar configuração</button>
+    <input type="file" id="inputImportarConfiguracao" accept="application/json" style="display:none;">
+</div>

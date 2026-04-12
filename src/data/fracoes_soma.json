@@ -1,6 +1,6 @@
 {
     "nomeTopico": "Frações",
     "nomeEquacao": "Soma de Frações",
-    "modeloEquacao": "A/B + C/D",
-    "resposta": "E/F"
+    "modeloEquacao": "\\frac{A}{B} + \\frac{C}{D}",
+    "resposta": "\\frac{E}{F}"
 }

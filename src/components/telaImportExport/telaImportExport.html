@@ -1,0 +1,22 @@
+<h2>Persistência</h2>
+<hr>
+<p class="section-description">Exporte e importe os tópicos, equações e restrições criados manualmente.</p>
+
+<div class="table-container">
+    <h3>Exportar</h3>
+    <p class="helper-text">Gera um arquivo JSON com todos os tópicos customizados, equações customizadas e restrições configuradas.</p>
+    <div class="actions-row">
+        <input type="text" id="inputNomeExportacao" placeholder="Nome do arquivo" style="flex:1;max-width:320px;">
+        <button class="botao" id="botaoExportarDados" type="button">Exportar dados</button>
+    </div>
+</div>
+
+<div class="table-container" style="margin-top: 16px;">
+    <h3>Importar</h3>
+    <p class="helper-text">Carrega um arquivo exportado anteriormente. Os dados serão mesclados com os atuais — nenhum dado existente será apagado.</p>
+    <div class="actions-row">
+        <button class="botao" id="botaoImportarDados" type="button">Selecionar arquivo</button>
+        <input type="file" id="inputImportarDados" accept="application/json" style="display:none;">
+    </div>
+    <div id="importExportFeedback" class="section-description" style="margin-top: 8px;"></div>
+</div>

@@ -1,6 +1,6 @@
 {
     "nomeTopico": "Frações",
     "nomeEquacao": "Divisão de Frações",
-    "modeloEquacao": "A/B / C/D",
-    "resposta": "E/F"
+    "modeloEquacao": "\\frac{A}{B} \\div \\frac{C}{D}",
+    "resposta": "\\frac{E}{F}"
 }

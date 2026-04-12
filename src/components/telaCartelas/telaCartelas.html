@@ -1,0 +1,28 @@
+<h2>Cartelas</h2>
+<hr>
+<p class="section-description">Gere e visualize cartelas nas versões professor e aluno.</p>
+<div id="cartelasResumo" class="section-description"></div>
+<div class="actions-row no-print">
+    <button class="botao" id="botaoGerarCartelas" type="button">Gerar cartelas</button>
+    <button class="botao" id="botaoAlternarModoCartela" type="button">Modo Atual: Professor</button>
+    <button class="botao" id="botaoImprimirCartelas" type="button">Imprimir cartelas</button>
+</div>
+<div class="print-options-panel no-print">
+    <span class="print-options-title">Opções de impressão</span>
+    <div class="print-options-row">
+        <label class="print-option-label">
+            <input type="checkbox" id="checkboxCabecalhoCartela" checked>
+            Cabeçalho nas cartelas
+        </label>
+        <label class="print-option-label">
+            <input type="checkbox" id="checkboxImpressaoCompacta" checked>
+            Modo compacto
+        </label>
+        <label class="print-option-label">
+            <input type="checkbox" id="checkboxFolhaRosto" checked>
+            Folha de rosto
+        </label>
+    </div>
+</div>
+<div id="folhaRostoImpressao"></div>
+<div id="cartelasContainer" class="cartelas-grid"></div>

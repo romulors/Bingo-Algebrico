@@ -1,0 +1,47 @@
+<h2>Equações</h2>
+<hr>
+<p id="equacoesDescription" class="section-description">Selecione as equações para o Bingo.</p>
+<div class="actions-row">
+    <button class="botao" id="botaoMostrarFormEquacao" type="button">Novo Modelo de Equação</button>
+</div>
+<div class="table-container inline-form-panel">
+    <div id="equacaoFormPanel" class="form-grid form-grid-equacoes" style="display:none;">
+        <div style="display:flex;gap:1rem;align-items:flex-start;">
+            <div style="flex:1;min-width:250px;">
+                <label>
+                    <span>Tópico</span>
+                    <select id="inputNovaEquacaoTopico"></select>
+                </label>
+                <label>
+                    <span>Nome da equação</span>
+                    <input type="text" id="inputNovaEquacaoNome" placeholder="Ex.: Soma de Frações avançada" maxlength="80">
+                </label>
+                <label>
+                    <span>Modelo de Equação</span>
+                    <input type="text" id="inputNovaEquacaoModelo" placeholder="Ex.: A/B + C/D">
+                </label>
+                <label>
+                    <span>Resposta</span>
+                    <input type="text" id="inputNovaEquacaoResposta" placeholder="Ex.: E/F">
+                </label>
+                <label class="form-grid-wide">
+                    <span>Fórmula da resposta</span>
+                    <input type="text" id="inputNovaEquacaoFormula" placeholder="Ex.: (A*D+B*C)/(B*D)">
+                </label>
+                <div class="form-actions" style="margin-top:0.5rem;">
+                    <button class="botao" id="botaoAdicionarEquacao" type="button">Adicionar Equação</button>
+                </div>
+            </div>
+            <div id="equacaoPreview" style="flex:1;border:1px solid #ddd;padding:0.75rem;border-radius:4px;min-height:140px;background:#fff;">
+                <div style="font-weight:600;margin-bottom:0.5rem;">Pré-visualização</div>
+                <div id="equacaoPreviewMath" class="renderEquationPreview">&nbsp;</div>
+            </div>
+        </div>
+    </div>
+    <p class="helper-text">As variáveis são detectadas automaticamente a partir do modelo e da resposta.</p>
+</div>
+<div class="equationsList" id="equationsList"></div>
+<div class="actions-row">
+    <button class="botao" id="botaoAdicionarEquacao" type="button">Adicionar nova Equação</button>
+    <button class="botao" id="botaoSalvarEquacoes" type="button">Salvar Equações</button>
+</div>
