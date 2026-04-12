@@ -82,7 +82,7 @@ const PRESETS = [
 
 export function createTelaPresets({ elements, state, saveState, showToast, renderAll }) {
 
-    let activePresetId = null;
+    let activePresetId = state.activePresetId ?? "customizado";
     let cardElements = [];
 
     function getTopicNamesForPreset(preset) {
@@ -105,6 +105,7 @@ export function createTelaPresets({ elements, state, saveState, showToast, rende
 
     function applyPreset(preset) {
         activePresetId = preset.id;
+        state.activePresetId = preset.id;
         updateSelectedVisual();
 
         if (preset.customSelection) {
@@ -199,8 +200,14 @@ export function createTelaPresets({ elements, state, saveState, showToast, rende
 
     function selectCustom() {
         activePresetId = "customizado";
+        state.activePresetId = "customizado";
         updateSelectedVisual();
     }
 
-    return { render, selectCustom };
+    function selectById(id) {
+        activePresetId = id ?? "customizado";
+        updateSelectedVisual();
+    }
+
+    return { render, selectCustom, selectById };
 }

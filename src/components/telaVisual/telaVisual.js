@@ -1,3 +1,5 @@
+import { DEFAULT_VISUAL_THEME, EXPORT_VERSIONS, EXPORT_TYPES } from "../../app/constants.js";
+
 export function createTelaVisual({ elements, state, saveState, showToast, navigateTo, renderAll, applyThemeVars }) {
     // ─── Tema visual ─────────────────────────────────────────────────────────────
 
@@ -40,7 +42,8 @@ export function createTelaVisual({ elements, state, saveState, showToast, naviga
         const payload = {
             exportedAt: new Date().toISOString(),
             app: "BingoAlgebrico",
-            version: 1,
+            type: EXPORT_TYPES.CONFIGURACAO,
+            version: EXPORT_VERSIONS.CONFIGURACAO,
             data: { ...state }
         };
 
@@ -87,7 +90,17 @@ export function createTelaVisual({ elements, state, saveState, showToast, naviga
             const parsed = JSON.parse(text);
 
             if (parsed?.app !== "BingoAlgebrico" || !parsed?.version) {
-                showToast("Arquivo inválido ou de versão incompatível.");
+                showToast("Arquivo inválido ou não reconhecido.");
+                return;
+            }
+
+            if (parsed.type && parsed.type !== EXPORT_TYPES.CONFIGURACAO) {
+                showToast("Arquivo incorreto: use a tela Persistência para importar apenas dados customizados.");
+                return;
+            }
+
+            if (parsed.version > EXPORT_VERSIONS.CONFIGURACAO) {
+                showToast(`Arquivo de versão ${parsed.version} não suportada (máx: ${EXPORT_VERSIONS.CONFIGURACAO}). Atualize a aplicação.`);
                 return;
             }
 
@@ -137,6 +150,14 @@ export function createTelaVisual({ elements, state, saveState, showToast, naviga
             saveState();
             render();
             showToast("Tema aplicado.");
+        });
+
+        elements.botaoRestaurarTema?.addEventListener("click", () => {
+            state.visualTheme = { ...DEFAULT_VISUAL_THEME };
+            applyThemeToUI();
+            saveState();
+            renderAll();
+            showToast("Tema restaurado para o padr\u00e3o.");
         });
 
         elements.botaoExportarConfiguracao?.addEventListener("click", exportConfiguration);

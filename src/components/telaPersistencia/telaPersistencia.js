@@ -1,12 +1,14 @@
-export function createTelaImportExport({ elements, state, saveState, showToast, renderAll }) {
+import { EXPORT_VERSIONS, EXPORT_TYPES } from "../../app/constants.js";
+
+export function createTelaPersistencia({ elements, state, saveState, showToast, renderAll, applyThemeVars, getTelaPresets }) {
     function render() {
-        if (!elements.importExportFeedback) return;
+        if (!elements.persistenciaFeedback) return;
 
         const customTopics = state.topics.filter((t) => t.source === "custom");
         const customEquations = state.equations.filter((eq) => eq.source === "custom");
         const restrictionCount = Object.keys(state.restrictions).length;
 
-        elements.importExportFeedback.textContent =
+        elements.persistenciaFeedback.textContent =
             `Dados atuais: ${customTopics.length} tópico(s) customizado(s), ` +
             `${customEquations.length} equação(ões) customizada(s), ` +
             `${restrictionCount} restrição(ões) configurada(s).`;
@@ -23,8 +25,14 @@ export function createTelaImportExport({ elements, state, saveState, showToast, 
         const payload = {
             exportedAt: new Date().toISOString(),
             app: "BingoAlgebrico",
-            version: 1,
-            customTopics,
+            type: EXPORT_TYPES.DADOS,
+            version: EXPORT_VERSIONS.DADOS,
+            presetId: state.activePresetId ?? "customizado",
+            activeTopicIds: state.topics.filter((t) => t.selected).map((t) => t.id),
+            activeEquationIds: state.equations.filter((eq) => eq.selected).map((eq) => eq.id),
+            bingoParams: { ...state.bingoParams },
+            visualTheme: { ...state.visualTheme },
+            cardDisplayMode: state.cardDisplayMode,            customTopics,
             customEquations,
             restrictions: state.restrictions,
             customTopicCounter: state.customTopicCounter,
@@ -53,7 +61,17 @@ export function createTelaImportExport({ elements, state, saveState, showToast, 
             const parsed = JSON.parse(text);
 
             if (parsed?.app !== "BingoAlgebrico" || !parsed?.version) {
-                showToast("Arquivo inválido ou de versão incompatível.");
+                showToast("Arquivo inválido ou não reconhecido.");
+                return;
+            }
+
+            if (parsed.type && parsed.type !== EXPORT_TYPES.DADOS) {
+                showToast("Arquivo incorreto: use a tela Visual para importar configurações completas.");
+                return;
+            }
+
+            if (parsed.version > EXPORT_VERSIONS.DADOS) {
+                showToast(`Arquivo de versão ${parsed.version} não suportada (máx: ${EXPORT_VERSIONS.DADOS}). Atualize a aplicação.`);
                 return;
             }
 
@@ -113,6 +131,35 @@ export function createTelaImportExport({ elements, state, saveState, showToast, 
             }
             if (parsed.customEquationCounter > state.customEquationCounter) {
                 state.customEquationCounter = parsed.customEquationCounter;
+            }
+
+            // v2: restore selections, params and theme
+            if (parsed.version >= 2) {
+                const activeTopicIds = new Set(Array.isArray(parsed.activeTopicIds) ? parsed.activeTopicIds : []);
+                const activeEquationIds = new Set(Array.isArray(parsed.activeEquationIds) ? parsed.activeEquationIds : []);
+
+                state.topics.forEach((t) => { t.selected = activeTopicIds.has(t.id); });
+                state.equations.forEach((eq) => { eq.selected = activeEquationIds.has(eq.id); });
+
+                if (parsed.bingoParams && typeof parsed.bingoParams === "object") {
+                    state.bingoParams = {
+                        ...state.bingoParams,
+                        numQuestoesUnicas:     Number(parsed.bingoParams.numQuestoesUnicas     ?? state.bingoParams.numQuestoesUnicas),
+                        numCartelas:           Number(parsed.bingoParams.numCartelas            ?? state.bingoParams.numCartelas),
+                        numQuestoesPorCartela: Number(parsed.bingoParams.numQuestoesPorCartela ?? state.bingoParams.numQuestoesPorCartela),
+                        minRepeticoes:         Number(parsed.bingoParams.minRepeticoes          ?? state.bingoParams.minRepeticoes),
+                        maxRepeticoes:         Number(parsed.bingoParams.maxRepeticoes          ?? state.bingoParams.maxRepeticoes)
+                    };
+                }
+
+                if (parsed.visualTheme && typeof parsed.visualTheme === "object") {
+                    state.visualTheme = { ...state.visualTheme, ...parsed.visualTheme };
+                    applyThemeVars?.(state.visualTheme);
+                }
+
+                state.cardDisplayMode = parsed.cardDisplayMode === "aluno" ? "aluno" : "professor";
+                state.activePresetId = typeof parsed.presetId === "string" ? parsed.presetId : "customizado";
+                getTelaPresets?.().selectById(state.activePresetId);
             }
 
             saveState();

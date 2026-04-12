@@ -1,5 +1,7 @@
 export const STORAGE_KEY = "bingoAlgebrico.v1";
 export const TOAST_DURATION_MS = 2200;
+export const EXPORT_VERSIONS = { DADOS: 2, CONFIGURACAO: 1 };
+export const EXPORT_TYPES = { DADOS: "dados", CONFIGURACAO: "configuracao" };
 
 export const DEFAULT_DATA_FILES = [
     "src/data/fracoes_soma.json",
@@ -7,6 +9,14 @@ export const DEFAULT_DATA_FILES = [
     "src/data/fracoes_multiplicacao.json",
     "src/data/fracoes_divisao.json"
 ];
+
+export const DEFAULT_VISUAL_THEME = {
+    nomeBingo: "BINGO ALGÉBRICO",
+    nomeInstituicao: "",
+    corPrimaria: "#03233e",
+    corDestaque: "#64b0f2",
+    corFundo: "#f3f4fa"
+};
 
 export const RESPONSE_FORMULA_BY_EQUATION = {
     "Soma de Frações": "(A*D + B*C)/(B*D)",
@@ -52,7 +62,7 @@ export const FLOW_STEPS = [
         description: "Monte cartelas nas versões professor e aluno com base nas questões geradas."
     },
     {
-        screen: "importexport",
+        screen: "persistencia",
         title: "Persistência",
         description: "Exporte os tópicos, equações e restrições criados para reutilizá-los depois, ou importe uma configuração anterior."
     }

@@ -1,4 +1,4 @@
-import { FLOW_STEPS } from "../../app/constants.js";
+import { FLOW_STEPS, DEFAULT_VISUAL_THEME } from "../../app/constants.js";
 
 export function createTelaInicio({ elements, state, navigateTo, getSelectedEquations, validateBingoParams }) {
 	function countConfiguredRestrictions() {
@@ -50,13 +50,19 @@ export function createTelaInicio({ elements, state, navigateTo, getSelectedEquat
 				return state.generatedQuestions.length > 0
 					? { label: "Concluida", tone: "done" }
 					: { label: "Pendente", tone: "pending" };
+			case "visual": {
+				const isCustomized = Object.keys(DEFAULT_VISUAL_THEME).some(
+					(key) => state.visualTheme[key] !== DEFAULT_VISUAL_THEME[key]
+				);
+				return isCustomized
+					? { label: "Personalizado", tone: "done" }
+					: { label: "Opcional", tone: "optional" };
+			}
 			case "cartelas":
 				return state.generatedCards.length > 0
 					? { label: "Concluida", tone: "done" }
 					: { label: "Pendente", tone: "pending" };
-			case "final":
-				return { label: "Opcional", tone: "optional" };
-			case "importexport":
+			case "persistencia":
 				return { label: "Opcional", tone: "optional" };
 			default:
 				return { label: "Pendente", tone: "pending" };
@@ -70,7 +76,7 @@ export function createTelaInicio({ elements, state, navigateTo, getSelectedEquat
 
 		const selectedTopics = state.topics.filter((topic) => topic.selected).length;
 		const selectedEquations = state.equations.filter((equation) => equation.selected).length;
-		const restrictedVars = Object.keys(state.restrictions).length;
+		const restrictedVars = countConfiguredRestrictions();
 		const generatedQuestions = state.generatedQuestions.length;
 		const generatedCards = state.generatedCards.length;
 

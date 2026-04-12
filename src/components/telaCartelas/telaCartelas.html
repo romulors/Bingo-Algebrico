@@ -6,22 +6,14 @@
     <button class="botao" id="botaoGerarCartelas" type="button">Gerar cartelas</button>
     <button class="botao" id="botaoAlternarModoCartela" type="button">Modo Atual: Professor</button>
     <button class="botao" id="botaoImprimirCartelas" type="button">Imprimir cartelas</button>
+    <button class="botao botao-nav-next" data-next="persistencia" type="button">Continuar para Persistência <i class="fas fa-arrow-right"></i></button>
 </div>
 <div class="print-options-panel no-print">
     <span class="print-options-title">Opções de impressão</span>
     <div class="print-options-row">
-        <label class="print-option-label">
-            <input type="checkbox" id="checkboxCabecalhoCartela" checked>
-            Cabeçalho nas cartelas
-        </label>
-        <label class="print-option-label">
-            <input type="checkbox" id="checkboxImpressaoCompacta" checked>
-            Modo compacto
-        </label>
-        <label class="print-option-label">
-            <input type="checkbox" id="checkboxFolhaRosto" checked>
-            Folha de rosto
-        </label>
+        <button class="toggle-btn" id="toggleCabecalhoCartela" data-checked="true" type="button" aria-checked="true">Cabeçalho nas cartelas</button>
+        <button class="toggle-btn" id="toggleImpressaoCompacta" data-checked="true" type="button" aria-checked="true">Modo compacto</button>
+        <button class="toggle-btn" id="toggleFolhaRosto" data-checked="true" type="button" aria-checked="true">Folha de rosto</button>
     </div>
 </div>
 <div id="folhaRostoImpressao"></div>

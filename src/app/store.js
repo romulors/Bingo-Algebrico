@@ -1,4 +1,4 @@
-import { STORAGE_KEY } from "./constants.js";
+import { STORAGE_KEY, DEFAULT_VISUAL_THEME } from "./constants.js";
 
 export function createInitialState() {
     return {
@@ -16,16 +16,11 @@ export function createInitialState() {
         generatedQuestions: [],
         generatedCards: [],
         cardDisplayMode: "professor",
-        visualTheme: {
-            nomeBingo: "BINGO ALGÉBRICO",
-            nomeInstituicao: "",
-            corPrimaria: "#03233e",
-            corDestaque: "#64b0f2",
-            corFundo: "#f3f4fa"
-        },
+        visualTheme: { ...DEFAULT_VISUAL_THEME },
         customTopicCounter: 0,
         customEquationCounter: 0,
         questionCounter: 0,
+        activePresetId: "customizado",
         focusedRestrictionEquationId: "",
         editingEquationId: null
     };
@@ -44,7 +39,8 @@ export function saveState(state) {
         visualTheme: state.visualTheme,
         customTopicCounter: state.customTopicCounter,
         customEquationCounter: state.customEquationCounter,
-        questionCounter: state.questionCounter
+        questionCounter: state.questionCounter,
+        activePresetId: state.activePresetId ?? "customizado"
     };
 
     localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
@@ -126,6 +122,7 @@ export function mergeState(state, defaultTopics, defaultEquations) {
     state.customTopicCounter = Number(saved.customTopicCounter || 0);
     state.customEquationCounter = Number(saved.customEquationCounter || 0);
     state.questionCounter = Number(saved.questionCounter || state.generatedQuestions.length || 0);
+    state.activePresetId = typeof saved.activePresetId === "string" ? saved.activePresetId : "customizado";
 }
 
 function isDuplicateById(id, list, currentItem) {

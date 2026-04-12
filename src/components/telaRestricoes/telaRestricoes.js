@@ -9,12 +9,27 @@ export function createTelaRestricoes({ elements, state, saveState, onRestricaoCh
             return;
         }
 
+        let newEntriesAdded = false;
+        selectedEquations.forEach((equation) => {
+            equation.variables.forEach((variableName) => {
+                const key = `${equation.id}::${variableName}`;
+                if (!state.restrictions[key]) {
+                    state.restrictions[key] = { min: 1, max: 10, tipo: "inteiro" };
+                    newEntriesAdded = true;
+                }
+            });
+        });
+        if (newEntriesAdded) {
+            saveState();
+            onRestricaoChanged?.();
+        }
+
         const cards = selectedEquations.map((equation) => {
             const cardClass = state.focusedRestrictionEquationId === equation.id ? "restricao-card restriction-row-highlight" : "restricao-card";
 
             const rows = equation.variables.map((variableName) => {
                 const key = `${equation.id}::${variableName}`;
-                const config = state.restrictions[key] || { min: 1, max: 10, tipo: "inteiro" };
+                const config = state.restrictions[key];
 
                 return `
                     <tr data-equation-id="${equation.id}">

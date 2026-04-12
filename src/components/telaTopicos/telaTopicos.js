@@ -112,11 +112,15 @@ export function createTelaTopicos({ elements, state, renderAll, saveState, showT
 			return;
 		}
 
+		const equationIdsToRemove = state.equations
+			.filter((equation) => equation.topicId === topicId)
+			.map((equation) => equation.id);
+
 		state.topics = state.topics.filter((item) => item.id !== topicId);
 		state.equations = state.equations.filter((equation) => equation.topicId !== topicId);
 
 		Object.keys(state.restrictions).forEach((restrictionKey) => {
-			if (restrictionKey.startsWith(`${topicId}::`)) {
+			if (equationIdsToRemove.some((equationId) => restrictionKey.startsWith(`${equationId}::`))) {
 				delete state.restrictions[restrictionKey];
 			}
 		});

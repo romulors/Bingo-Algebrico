@@ -41,9 +41,9 @@ export function createElementsRegistry() {
         botaoGerarCartelas: null,
         botaoAlternarModoCartela: null,
         botaoImprimirCartelas: null,
-        checkboxImpressaoCompacta: null,
-        checkboxCabecalhoCartela: null,
-        checkboxFolhaRosto: null,
+        toggleImpressaoCompacta: null,
+        toggleCabecalhoCartela: null,
+        toggleFolhaRosto: null,
         folhaRostoImpressao: null,
         presetsContainer: null,
         temaNomeBingo: null,
@@ -53,6 +53,7 @@ export function createElementsRegistry() {
         temaCorFundo: null,
         visualResumo: null,
         botaoAplicarTema: null,
+        botaoRestaurarTema: null,
         botaoExportarConfiguracao: null,
         botaoImportarConfiguracao: null,
         inputImportarConfiguracao: null,
@@ -60,7 +61,7 @@ export function createElementsRegistry() {
         botaoImportarDados: null,
         inputImportarDados: null,
         inputNomeExportacao: null,
-        importExportFeedback: null,
+        persistenciaFeedback: null,
         botaoLimparLog: null,
         logContainer: null,
         appMessage: null,
@@ -111,9 +112,9 @@ export function bindDOMElements(elements) {
     elements.botaoGerarCartelas = document.getElementById("botaoGerarCartelas");
     elements.botaoAlternarModoCartela = document.getElementById("botaoAlternarModoCartela");
     elements.botaoImprimirCartelas = document.getElementById("botaoImprimirCartelas");
-    elements.checkboxImpressaoCompacta = document.getElementById("checkboxImpressaoCompacta");
-    elements.checkboxFolhaRosto = document.getElementById("checkboxFolhaRosto");
-    elements.checkboxCabecalhoCartela = document.getElementById("checkboxCabecalhoCartela");
+    elements.toggleImpressaoCompacta = document.getElementById("toggleImpressaoCompacta");
+    elements.toggleFolhaRosto        = document.getElementById("toggleFolhaRosto");
+    elements.toggleCabecalhoCartela  = document.getElementById("toggleCabecalhoCartela");
     elements.folhaRostoImpressao = document.getElementById("folhaRostoImpressao");
     elements.presetsContainer = document.getElementById("presetsContainer");
     elements.temaNomeBingo = document.getElementById("temaNomeBingo");
@@ -123,6 +124,7 @@ export function bindDOMElements(elements) {
     elements.temaCorFundo = document.getElementById("temaCorFundo");
     elements.visualResumo = document.getElementById("visualResumo");
     elements.botaoAplicarTema = document.getElementById("botaoAplicarTema");
+    elements.botaoRestaurarTema = document.getElementById("botaoRestaurarTema");
     elements.botaoExportarConfiguracao = document.getElementById("botaoExportarConfiguracao");
     elements.botaoImportarConfiguracao = document.getElementById("botaoImportarConfiguracao");
     elements.inputImportarConfiguracao = document.getElementById("inputImportarConfiguracao");
@@ -130,7 +132,7 @@ export function bindDOMElements(elements) {
     elements.botaoImportarDados = document.getElementById("botaoImportarDados");
     elements.inputImportarDados = document.getElementById("inputImportarDados");
     elements.inputNomeExportacao = document.getElementById("inputNomeExportacao");
-    elements.importExportFeedback = document.getElementById("importExportFeedback");
+    elements.persistenciaFeedback = document.getElementById("persistenciaFeedback");
     elements.botaoLimparLog = document.getElementById("botaoLimparLog");
     elements.logContainer = document.getElementById("logContainer");
     elements.appMessage = document.getElementById("appMessage");

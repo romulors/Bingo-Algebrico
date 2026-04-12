@@ -13,7 +13,7 @@ import { createTelaBingo } from "./src/components/telaBingo/telaBingo.js";
 import { createTelaQuestoes } from "./src/components/telaQuestoes/telaQuestoes.js";
 import { createTelaCartelas } from "./src/components/telaCartelas/telaCartelas.js";
 import { createTelaVisual } from "./src/components/telaVisual/telaVisual.js";
-import { createTelaImportExport } from "./src/components/telaImportExport/telaImportExport.js";
+import { createTelaPersistencia } from "./src/components/telaPersistencia/telaPersistencia.js";
 import { createTelaLog } from "./src/components/telaLog/telaLog.js";
 import { createTelaPresets } from "./src/components/telaPresets/telaPresets.js";
 
@@ -47,7 +47,7 @@ let telaBingo = null;
 let telaQuestoes = null;
 let telaCartelas = null;
 let telaVisual = null;
-let telaImportExport = null;
+let telaPersistencia = null;
 let telaLog = null;
 let telaPresets = null;
 
@@ -167,11 +167,11 @@ function getTelaVisual() {
     return telaVisual;
 }
 
-function getTelaImportExport() {
-    if (!telaImportExport) {
-        telaImportExport = createTelaImportExport({ elements, state, saveState, showToast, renderAll });
+function getTelaPersistencia() {
+    if (!telaPersistencia) {
+        telaPersistencia = createTelaPersistencia({ elements, state, saveState, showToast, renderAll, applyThemeVars, getTelaPresets });
     }
-    return telaImportExport;
+    return telaPersistencia;
 }
 
 function getTelaLog() {
@@ -249,7 +249,7 @@ function renderAll() {
     getTelaQuestoes().render();
     getTelaCartelas().render();
     getTelaVisual().render();
-    getTelaImportExport().render();
+    getTelaPersistencia().render();
     getTelaLog().render();
     getTelaPresets().render();
     updateActionAvailability();
@@ -299,11 +299,17 @@ function wireActions() {
     // Visual
     getTelaVisual().wireActions();
 
-    // Importar / Exportar
-    getTelaImportExport().wireActions();
+    // Persistência
+    getTelaPersistencia().wireActions();
 
     // Log
     getTelaLog().wireActions();
+
+    // Navegação sequencial entre telas
+    document.addEventListener("click", (e) => {
+        const btn = e.target.closest(".botao-nav-next");
+        if (btn?.dataset.next) navigateTo(btn.dataset.next);
+    });
 }
 
 // ─── Inicialização ────────────────────────────────────────────────────────────────
@@ -324,7 +330,7 @@ async function initialize() {
             loadHTML("src/components/telaQuestoes/telaQuestoes.html", "[data-screen=\"questoes\"]"),
             loadHTML("src/components/telaCartelas/telaCartelas.html", "[data-screen=\"cartelas\"]"),
             loadHTML("src/components/telaVisual/telaVisual.html",     "[data-screen=\"visual\"]"),
-            loadHTML("src/components/telaImportExport/telaImportExport.html", "[data-screen=\"importexport\"]"),
+            loadHTML("src/components/telaPersistencia/telaPersistencia.html", "[data-screen=\"persistencia\"]"),
             loadHTML("src/components/telaLog/telaLog.html", "[data-screen=\"log\"]"),
             loadHTML("src/components/telaPresets/telaPresets.html", "[data-screen=\"presets\"]")
         ]);

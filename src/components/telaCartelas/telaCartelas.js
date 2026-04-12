@@ -2,6 +2,12 @@ import { renderMath } from "../../app/utils/ui.js";
 import { MathUtils } from "../../app/services/math-utils.js";
 
 export function createTelaCartelas({ elements, state, saveState, showToast, navigateTo, renderAll, validateBingoParams, syncBingoParamsFromInputs, renderBingo }) {
+    // ─── Helpers ─────────────────────────────────────────────────────────────────
+
+    function isToggleOn(el) {
+        return el?.dataset.checked === "true";
+    }
+
     // ─── Utilitários de distribuição ─────────────────────────────────────────────
 
     function shuffleArray(array) {
@@ -85,7 +91,7 @@ export function createTelaCartelas({ elements, state, saveState, showToast, navi
     function buildCoverSheet() {
         if (!elements.folhaRostoImpressao) return;
 
-        if (!(elements.checkboxFolhaRosto?.checked ?? true)) {
+        if (!isToggleOn(elements.toggleFolhaRosto)) {
             elements.folhaRostoImpressao.innerHTML = "";
             return;
         }
@@ -167,7 +173,7 @@ export function createTelaCartelas({ elements, state, saveState, showToast, navi
         const questionMap = new Map(state.generatedQuestions.map((question, index) => [question.id, { ...question, numero: index + 1 }]));
         elements.cartelasResumo.textContent = `Total de cartelas: ${state.generatedCards.length}. Visualização atual: ${state.cardDisplayMode}.`;
 
-        const showHeader = elements.checkboxCabecalhoCartela?.checked ?? false;
+        const showHeader = isToggleOn(elements.toggleCabecalhoCartela);
         const nomeBingo = state.visualTheme?.nomeBingo || "BINGO ALGÉBRICO";
         const nomeInstituicao = state.visualTheme?.nomeInstituicao || "";
 
@@ -268,7 +274,7 @@ export function createTelaCartelas({ elements, state, saveState, showToast, navi
         }
 
         navigateTo("cartelas");
-        const compact = elements.checkboxImpressaoCompacta?.checked ?? false;
+        const compact = isToggleOn(elements.toggleImpressaoCompacta);
         if (compact) document.body.classList.add("compact-print");
         window.print();
         if (compact) document.body.classList.remove("compact-print");
@@ -278,8 +284,15 @@ export function createTelaCartelas({ elements, state, saveState, showToast, navi
         elements.botaoGerarCartelas?.addEventListener("click", generateCards);
         elements.botaoAlternarModoCartela?.addEventListener("click", toggleCardMode);
         elements.botaoImprimirCartelas?.addEventListener("click", printCards);
-        elements.checkboxCabecalhoCartela?.addEventListener("change", render);
-        elements.checkboxFolhaRosto?.addEventListener("change", render);
+
+        [elements.toggleCabecalhoCartela, elements.toggleFolhaRosto, elements.toggleImpressaoCompacta].forEach((btn) => {
+            btn?.addEventListener("click", () => {
+                const next = btn.dataset.checked !== "true";
+                btn.dataset.checked = String(next);
+                btn.setAttribute("aria-checked", String(next));
+                render();
+            });
+        });
     }
 
     return { render, generateCards, toggleCardMode, printCards, wireActions };
